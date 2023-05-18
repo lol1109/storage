@@ -1,12 +1,14 @@
       <div class="page-wrapper">
         <!-- Page body -->
-        <div class="page-body">
-          <div class="container-xl d-flex flex-column justify-content-center">
+        <div class="page-body justify-content-center">
+          <div></div>
+          <div class="container-xl d-flex flex-column justify-content-center ">
           	<form action="<?= base_url('index.php/Fungsi/tambah_data') ?>" method="post">
           	<div class="row">
-          		<div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
+              <div class="col-md-3"></div>
+          		<div class="col-md-6">
+                <div class="card justify-content-center">
+                  <div class="card-header bg-primary text-white">
                     <h3 class="card-title">Tambah Data Tamu</h3>
                   </div>
                   <div class="card-body">
@@ -30,13 +32,11 @@
                             <div class="form-label">Bidang </div>
                             <div>
                               <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" 
-	       name="Bidang"  value="Elang Property" checked>
+                                <input class="form-check-input" type="radio" name="Bidang"  value="Elang Property" checked>
                                 <span class="form-check-label">Elang Property</span>
                               </label>
                               <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" 
-	       name="Bidang" value="Elang Motor">
+                                <input class="form-check-input" type="radio" name="Bidang" value="Elang Motor">
                                 <span class="form-check-label">Elang Motor</span>
                               </label>
                             </div>
@@ -46,20 +46,17 @@
                             <div class="form-label">Tujuan </div>
                             <div>
                               <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" 
-	       name="Tujuan"  value="Pengajuan" checked>
+                                <input class="form-check-input" type="radio" name="Tujuan"  value="Pengajuan" checked>
                                 <span class="form-check-label">Pengajuan</span>
                               </label>
 
                               <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" 
-	       name="Tujuan"  value="Konsultasi" checked>
+                                <input class="form-check-input" type="radio" name="Tujuan"  value="Konsultasi" checked>
                                 <span class="form-check-label">Konsultasi</span>
                               </label>
 
                               <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" 
-	       name="Tujuan" value="Non Pengajuan">
+                                <input class="form-check-input" type="radio" name="Tujuan" value="Non Pengajuan">
                                 <span class="form-check-label">Non Pengajuan</span>
                               </label>
                             </div>
@@ -92,6 +89,24 @@
                               </select>
                             </div>
 
+                            <div class="mb-3">
+                              <div class="form-label">Cabang</div>
+                              <select name="cabang" class="form-select">
+                                 <?php foreach ($cabang as $dt) : //dt = data ?>
+                                <option value="<?= $dt->id_cabang; ?>"><?= $dt->nama_cabang; ?></option>
+                                <?php endforeach; ?>
+                              </select>
+                            </div>
+
+                            <div class="mb-3">
+                              <div class="form-label">Petugas</div>
+                              <select name="petugas" class="form-select">
+                                 <?php foreach ($petugas as $dt) : //dt = data ?>
+                                <option value="<?= $dt->id_petugas; ?>"><?= $dt->nama_petugas; ?></option>
+                                <?php endforeach; ?>
+                              </select>
+                            </div>
+                            
                               <div class="mb-3">
                               <label class="form-label">Kesimpulan <span class="form-label-description">-</span></label>
                               <textarea class="form-control" name="Kesimpulan" rows="6" placeholder="Content.."></textarea>
@@ -108,7 +123,8 @@
                   </div>
                 </div>
               </div>
+              <div class="col-md-3"></div>
           	</div>
-         </form>
-        </div>
+            </form>
+          </div>
       </div>

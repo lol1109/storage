@@ -5,7 +5,7 @@
             <div class="row row-cards">
                   <div class="col-sm-6 col-lg-3">
                     <div class="card card-sm">
-                      <div class="card-body">
+                      <div class="card-body text-center">
                         <div class="row align-items-center">
                           <div class="col-auto">
                             <span class="bg-primary text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
@@ -91,10 +91,7 @@
                   </div>
                 </div>
             <br>
-            <div class="row g-2 align-items-center">
-            </div>
-          <br>
-            <div class="col-12">
+            <div class="col-lg-12">
               <div class="card">
                   <div class="card-header">
                     <h3 class="card-title">Daftar Tamu</h3>
@@ -111,8 +108,8 @@
                   </div> -->
 
                   <div class="table-responsive">
-                    <table id="data" class="table card-table table-vcenter text-nowrap datatable ">
-                      <thead>
+                    <table id="data" class="table card-table table-vcenter text-nowrap">
+                      <thead class="thead-dark">
                           <th>No</th>
                           <th>Name</th>
                           <th>Kontak</th>
@@ -121,6 +118,8 @@
                           <th>Tujuan</th>
                           <th>Jenis Informasi</th>
                           <th>Informasi</th>
+                          <th>cabang</th>
+                          <th>petugas</th>
                           <th>Kesimpulan</th>
                           <th>Tanggal</th>
                           <th class="w-5"></th>
@@ -141,10 +140,23 @@
                           <td><?= $dt->Tujuan; ?></td>
                           <td><?= $dt->JenisInformasi; ?></td>
                           <td><?= $dt->Informasi; ?></td>
+                          <td><?= $dt->nama_cabang; ?></td>
+                          <td><?= $dt->nama_petugas; ?></td>
                           <td><?= $dt->Kesimpulan; ?></td>
                           <td><?= date('Y-M-d', strtotime($dt->tanggal)); ?></td>
                           <td>
-                            <?= anchor('Fungsi/Edit/'.$dt->id_tamu, 'Edit'); ?> | <?= anchor('Fungsi/hapus/'.$dt->id_tamu, 'Hapus'); ?>
+                            <?= anchor('index.php/Fungsi/Edit/'.$dt->id_tamu, '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                <path d="M12 11l0 6"></path>
+                                <path d="M9 14l6 0"></path>
+                            </svg>'); ?> | <?= anchor('index.php/Fungsi/hapus/'.$dt->id_tamu, '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-x color-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                <path d="M10 12l4 4m0 -4l-4 4"></path>
+                                </svg>'); ?>
                           </td>
                         </tr>
                       </tbody>
@@ -155,7 +167,6 @@
                   </div>
                 </div>
                 </div>
-                <br>
               </div>
             </div>
           </div>

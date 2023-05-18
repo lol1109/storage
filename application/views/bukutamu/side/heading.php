@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="<?= base_url('dist/css/tabler-payments.min.css?1674944402') ?>" />
     <link rel="stylesheet" href="<?= base_url('dist/css/tabler-vendors.min.css?1674944402') ?>"/>
     <link rel="stylesheet" href="<?= base_url('dist/css/demo.min.css?1674944402') ?>" />
-    <link rel="stylesheet" href="<?= base_url('dist/dt/datatables.min.css') ?>" />
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -35,10 +34,5 @@
     </style>
   </head>
   <body >
-    <script src="<?= base_url('dist/dt/datatables.js') ?>"></script>
-    <script src="<?= base_url('dist/dt/datatables.min.js') ?>"></script>
-    <script src="<?= base_url('dist/dt/DataTables/js/jquery.dataTables.js') ?>"></script>
-    <script src="<?= base_url('dist/dt/DataTables/js/jquery.dataTables.min.js') ?>"></script>
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url('/dist/js/demo-theme.min.js?1674944402') ?>"></script>
         <div class="page">

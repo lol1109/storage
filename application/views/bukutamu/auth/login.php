@@ -1,28 +1,5 @@
 <?php 
-	//jangan lupa kalau makai PASSWORD_HASH panjang password di databasenya juga besar.
-	require "koneksi.php";
-
-	if (isset($_POST["login"])) {
-		$username = $_POST["username"];
-		$password = $_POST["password"];
-
-		$result = mysqli_query($con, "SELECT * FROM user WHERE gmail = '$username'");
-
-		//cek username
-		if ( mysqli_num_rows($result) === 1) {
-
-			//cek password
-			$row = mysqli_fetch_assoc($result);
-
-			if( password_verify($password, $row["password"]) ) {
-				header("Location: data.php?");
-				exit;
-			}
-
-		}
-
-	}
-
+  defined('BASEPATH') OR exit('No direct script access allowed');
  ?>
 
 

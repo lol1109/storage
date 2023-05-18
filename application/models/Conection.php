@@ -5,7 +5,11 @@
 	class Conection extends CI_Model
 	{
 		function tampil_data_tamu(){
-			return $this->db->get('tamu');
+			return $this->db->get('tamu', 10);
+		}
+
+		function tampil_data_join(){
+			return $this->db->query("SELECT tamu.id_tamu, tamu.Nama, tamu.Kontak, tamu.noWa, tamu.Bidang, tamu.Tujuan, tamu.JenisInformasi,tamu.Informasi, tamu.Kesimpulan, tamu.tanggal, petugas.nama_petugas, cabang.nama_cabang FROM ((tamu INNER JOIN petugas ON petugas.id_petugas = tamu.petugas)INNER JOIN cabang ON cabang.id_cabang = tamu.cabang);");
 		}
 
 		function tampil_data_perbulan(){
@@ -38,8 +42,18 @@
 			$this->db->update($table, $data);
 		}
 
-		function cari_data($keyword){
-			$sql = "SELECT * FROM tamu WHERE Nama LIKE '%" . $this->db->escape_like_str($keyword). "%' ESCAPE '!'";
+		function data_baru(){
+			return $this->db->query("SELECT Nama FROM tamu ORDER BY id_tamu DESC LIMIT 1");
+		}
+
+		function cabang()
+		{
+			return $this->db->query("SELECT * FROM cabang");
+		}
+
+		function petugas()
+		{
+			return $this->db->query("SELECT * FROM petugas");
 		}
 	}
  ?>
