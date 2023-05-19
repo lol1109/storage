@@ -95,11 +95,28 @@
                               </select>
                             </div>
 
-
-                              <div class="mb-3">
-                             	<label class="form-label">Kesimpulan</label>
-                              	<input type="text" class="form-control" name="Kesimpulan" value="<?= $dt->Kesimpulan; ?>">
+                             <div class="mb-3">
+                              <label class="form-label">Kesimpulan</label>
+                                <input type="text" class="form-control" name="Kesimpulan" value="<?= $dt->Kesimpulan; ?>">
                             </div>
+
+                            <div class="mb-3">
+                              <div class="form-label">Cabang</div>
+                              <select name="cabang" class="form-select">
+                                 <?php foreach ($cabang as $dt) : //dt = data ?>
+                                <option value="<?= $dt->id_cabang; ?>"><?= $dt->nama_cabang; ?></option>
+                                <?php endforeach; ?>
+                              </select>
+                            </div>
+
+                            <div class="mb-3">
+                              <div class="form-label">Petugas</div>
+                              <select name="petugas" class="form-select">
+                                 <?php foreach ($petugas as $dt) : //dt = data ?>
+                                <option value="<?= $dt->id_petugas; ?>"><?= $dt->nama_petugas; ?></option>
+                                <?php endforeach; ?>
+                              </select>
+                            </div>  
 
                             <div class="col-6 col-sm-4 col-md-2 col-xl py-3">
                         		<button type="submit" name="submit" class="btn btn-primary w-100">

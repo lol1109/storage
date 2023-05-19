@@ -80,11 +80,15 @@ class Fungsi extends CI_Controller {
 
 	public function Edit($id){
 		$where = array('id_tamu' => $id, );
-		$data['tamu'] = $this->Conection->Edit_data($where, 'tamu')->result();
-		$this->load->view('index.php/bukutamu/side/heading.php');
-		$this->load->view('index.php/bukutamu/side/navbar.php');
-		$this->load->view('index.php/bukutamu/change.php', $data);
-		$this->load->view('index.php/bukutamu/side/footer.php');
+		$data = array( 
+			'tamu' => $this->Conection->Edit_data($where, 'tamu')->result(),
+			'cabang' => $this->Conection->cabang()->result(),
+			'petugas' => $this->Conection->petugas()->result(),
+		);
+		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/ubah/change.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
 	}
 
 	public function Ubah(){
@@ -96,6 +100,8 @@ class Fungsi extends CI_Controller {
 		$Tujuan = $this->input->post('Tujuan');
 		$JenisInformasi = $this->input->post('JenisInformasi');
 		$Informasi = $this->input->post('Informasi');
+		$cabang = $this->input->post('cabang');
+		$petugas = $this->input->post('petugas');
 		$Kesimpulan = $this->input->post('Kesimpulan');
 
 		$data = array(
@@ -106,6 +112,8 @@ class Fungsi extends CI_Controller {
 			'Tujuan' => $Tujuan,
 			'JenisInformasi' => $JenisInformasi,
 			'Informasi' => $Informasi,
+			'cabang' => $cabang,
+			'petugas' => $petugas,
 			'Kesimpulan' => $Kesimpulan,
 		);
 
@@ -114,6 +122,6 @@ class Fungsi extends CI_Controller {
 		);
 
 		$this->Conection->ubah_data($where, $data, 'tamu');
-		redirect('Fungsi/index');
+		redirect('index.php/Fungsi/index');
 	}
 }

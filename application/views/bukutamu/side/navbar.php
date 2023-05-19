@@ -22,10 +22,11 @@
                       </div>
                       <div class="nav-item dropdown">
                         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                          <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000f.jpg)"></span>
+                          <span class="avatar avatar-sm" style="background-image: url(<?= base_url('./dist/img/profile/fandy.webp') ?>)"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                          test
+                          <a class="dropdown-item"><?= $this->session->userdata['nama'] ?></a>
+                          <a href="<?= base_url('index.php/Auth/logout') ?>" class="dropdown-item">Log out</a>
                         </div>
                       </div>
                     </div>
@@ -73,7 +74,7 @@
                               <a class="dropdown-item" href="<?= base_url('index.php/Petugas/data') ?>">
                                 petugas
                               </a>
-                              <a class="dropdown-item" href="./#">
+                              <a class="dropdown-item" href="#">
                                 user
                               </a>
                             </div>
