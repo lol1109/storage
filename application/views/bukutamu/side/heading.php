@@ -15,7 +15,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Daftar Tamu</title>
+    <title>Data Tamu</title>
     <!-- CSS files -->
      <!-- CSS files -->
     <link rel="stylesheet" href="<?= base_url('dist/css/tabler.min.css?1674944402') ?> "/>

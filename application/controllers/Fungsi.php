@@ -41,6 +41,11 @@ class Fungsi extends CI_Controller {
 	}
 
 	public function tambah_data(){
+
+		$rules = $this->Conection->rules();
+		$this->form_validation->set_rules($rules);
+
+	if ($this->form_validation->run() === TRUE) {
 		$nama = $this->input->post('Nama');
 		$Kontak = $this->input->post('Kontak');
 		$noWa = $this->input->post('noWa');
@@ -53,7 +58,7 @@ class Fungsi extends CI_Controller {
 		$Kesimpulan = $this->input->post('Kesimpulan');
 		$tanggal = $this->input->post('tanggal');
 
-
+	
 		$data = array(
 			'Nama' => $nama,
 			'Kontak' => $Kontak,
@@ -67,9 +72,23 @@ class Fungsi extends CI_Controller {
 			'petugas' => $petugas,
 			'tanggal' => $tanggal,
 		);
-
 		$this->Conection->tambah_data($data, 'tamu');
 		redirect('index.php/Fungsi/index');
+		} 
+
+		else {
+			$data = [
+			'cabang' => $this->Conection->cabang()->result(),
+			'petugas' => $this->Conection->petugas()->result(),
+		];
+
+		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/navbar.php');
+		return $this->load->view('bukutamu/tambah/insert.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+		}
+		redirect('index.php/Fungsi/index');
+		
 	}   
 
 	public function hapus($id){

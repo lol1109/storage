@@ -94,7 +94,8 @@
             <div class="col-lg-12">
               <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">Daftar Tamu</h3>
+                    <h3 class="card-title">Daftar Tamu <?= $this->input->cookie('expire', true); ?></h3>
+
                   </div>
                   <!-- <div class="card-body border-bottom py-3">
                      <div class="input-icon">

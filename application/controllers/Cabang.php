@@ -7,10 +7,11 @@
 		function  __construct(){
 		parent::__construct();
 		$this->load->model('Conection');
+		
 	}
 
 	public function data(){
-			$data = [
+		$data = [
 			'cabang' => $this->Conection->cabang()->result(),
 		];
 
@@ -29,6 +30,10 @@
 	}
 
 	public function tambah_data_cabang(){
+		$rules = $this->Conection->rules1();
+		$this->form_validation->set_rules($rules);
+
+	if ($this->form_validation->run() === TRUE) {
 		$nama = $this->input->post('Nama');
 		$Kontak = $this->input->post('Kontak');
 
@@ -39,6 +44,13 @@
 
 		$this->Conection->tambah_data($data, 'cabang');
 		redirect('index.php/Cabang/data');
+	} else {
+		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/tambah/insert_cabang.php');
+		$this->load->view('bukutamu/side/footer.php');
+	}
+
 	}   
 
 	public function hapus_cabang($id){

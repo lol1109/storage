@@ -8,24 +8,27 @@
           		<div class="col-md-6">
                 <div class="card">
                   <div class="card-header bg-primary text-white">
-                    <h3 class="card-title">Tambah Data Cabang</h3>
+                    <h3 class="card-title">Tambah Data Petugas</h3>
                   </div>
                   <div class="card-body">
 
-                  	 		<div class="mb-3">
-                              	<label class="form-label">Nama</label>
-                              	<input type="text" class="form-control" name="nama" placeholder="afandy" required>
+                  	 		  <div class="mb-3">
+                                <label class="form-label">Nama</label>
+                                <input type="text" class="form-control" name="Nama" placeholder="Budi" value="<?= set_value('Nama') ?>">
+                                <div class="text-red"><?= form_error('Nama'); ?></div>
                             </div>
 
-                      		<div class="mb-3">
-                             	<label class="form-label">username</label>
-                              	<input type="text" class="form-control" name="username" placeholder="fandy" required>
-                            </div>
+                      		 <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control <?= form_error('username') ? 'invalid' : '' ?>" name="username" id="username" placeholder="your" value="<?= set_value('username') ?>">
+                <div class="text-red"><?= form_error('username'); ?></div>
+              </div>
 
 
                           <div class="mb-3">
                               <label class="form-label">password</label>
-                                <input type="text" class="form-control" name="pass" placeholder="12345678" required>
+                                <input type="password" class="form-control <?= form_error('password') ? 'invalid' : '' ?>" name="password" id="password" placeholder="Your password" value="<?= set_value('password') ?>">
+                                 <div class="text-red text-muted"><?= form_error('password'); ?></div>
                             </div>
 
                             

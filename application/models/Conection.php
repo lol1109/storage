@@ -55,5 +55,66 @@
 		{
 			return $this->db->query("SELECT * FROM petugas");
 		}
+
+		function rules(){
+			return[
+				[
+					'field' => 'Nama',
+					'label' => 'Nama',
+					'rules' => 'required|max_length[64]|min_length[4]',
+				],
+				[
+					'field' => 'Kontak',
+					'label' => 'Kontak',
+					'rules' => 'required|max_length[15]|min_length[10]|integer',
+				],
+				[
+					'field' => 'noWa',
+					'label' => 'Kontak Whatsapp',
+					'rules' => 'required|max_length[15]|min_length[10]|integer',
+				],
+				[
+					'field' => 'JenisInformasi',
+					'label' => 'Jenis Infromasi',
+					'rules' => 'required|max_length[255]|min_length[3]',
+				],
+
+			];
+		}
+
+		function rules1(){
+			return[
+				[
+					'field' => 'Nama',
+					'label' => 'Nama',
+					'rules' => 'required|max_length[64]|min_length[4]',
+				],
+				[
+					'field' => 'Kontak',
+					'label' => 'Kontak',
+					'rules' => 'required|max_length[15]|min_length[10]|integer',
+				]
+			];
+		}
+
+		function rules2(){
+			return[
+				[
+					'field' => 'Nama',
+					'label' => 'Nama',
+					'rules' => 'required|max_length[64]|min_length[4]',
+				],
+				[
+					'field' => 'username',
+					'label' => 'username',
+					'rules' => 'required|max_length[64]|min_length[4]',
+				],
+				[
+					'field' => 'password',
+					'label' => 'password',
+					'rules' => 'required|max_length[255]|min_length[3]',
+				],
+			];
+		}
 	}
  ?>

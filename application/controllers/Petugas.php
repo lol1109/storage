@@ -34,20 +34,34 @@
 	}
 
 	public function tambah_data_petugas(){
-		$nama = $this->input->post('nama');
+		$rules = $this->Conection->rules2();
+		$this->form_validation->set_rules($rules);
+
+	if ($this->form_validation->run() === TRUE) {
+		$nama = $this->input->post('Nama');
 		$username = $this->input->post('username');
-		$pass = $this->input->post('pass');
+		$password = $this->input->post('password');
 		$id_cabang = $this->input->post('id_cabang');
 
 		$data = array(
 			'nama_petugas' => $nama,
 			'username' => $username,
-			'password' => $pass,
+			'password' => $password,
 			'id_cabang' => $id_cabang,
 		);
 
 		$this->Conection->tambah_data($data, 'petugas');
 		redirect('index.php/Petugas/data');
+	} else {
+		$data = [
+			'cabang' => $this->Conection->cabang()->result(),
+		];
+
+		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/tambah/insert_petugas.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+	}
 	}
 
 	public function hapus_petugas($id){

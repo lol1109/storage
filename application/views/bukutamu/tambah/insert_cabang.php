@@ -12,14 +12,17 @@
                   </div>
                     <div class="card-body">
                   	 		<div class="mb-3">
-                            <label class="form-label">Nama</label>
-                            <input type="text" class="form-control" name="Nama" placeholder="Budi" required>
-                          </div>
+                                <label class="form-label">Nama</label>
+                                <input type="text" class="form-control" name="Nama" placeholder="Budi" value="<?= set_value('Nama') ?>">
+                                <div class="text-red"><?= form_error('Nama'); ?></div>
+                            </div>
+
 
                       	<div class="mb-3">
-                             <label class="form-label">Kontak</label>
-                            <input type="text" class="form-control" name="Kontak" placeholder="081122334455" required>
-                        </div>
+                              <label class="form-label">Kontak</label>
+                                <input type="text" class="form-control" name="Kontak" placeholder="081122334455" value="<?= set_value('Kontak') ?>">
+                                <div class="text-red"><?= form_error('Kontak'); ?></div>
+                            </div>
 
                         <div class="col-6 col-sm-4 col-md-2 col-xl py-3">
                         		<button type="submit" name="kirim" class="btn btn-primary w-100"> Tambah </button>

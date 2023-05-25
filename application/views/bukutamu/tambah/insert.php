@@ -15,17 +15,20 @@
 
                   	 		<div class="mb-3">
                               	<label class="form-label">Nama</label>
-                              	<input type="text" class="form-control" name="Nama" placeholder="Budi" required>
+                              	<input type="text" class="form-control" name="Nama" placeholder="Budi" value="<?= set_value('Nama') ?>">
+                                <div class="text-red"><?= form_error('Nama'); ?></div>
                             </div>
 
                       		<div class="mb-3">
                              	<label class="form-label">Kontak</label>
-                              	<input type="text" class="form-control" name="Kontak" placeholder="081122334455" required>
+                              	<input type="text" class="form-control" name="Kontak" placeholder="081122334455" value="<?= set_value('Kontak') ?>">
+                                <div class="text-red"><?= form_error('Kontak'); ?></div>
                             </div>
 
                              <div class="mb-3">
                              	<label class="form-label">Kontak WhatsApp</label>
-                              	<input type="text" class="form-control" name="noWa" placeholder="0812345678910" required>
+                              	<input type="text" class="form-control" name="noWa" placeholder="0812345678910" value="<?= set_value('noWa') ?>">
+                                <div class="text-red"><?= form_error('noWa'); ?></div>
                             </div>
 
                             <div class="mb-3">
@@ -64,7 +67,8 @@
 
                             <div class="mb-3">
                               	<label class="form-label">Jenis Informasi</label>
-                              	<input type="text" class="form-control" name="JenisInformasi" placeholder="apa yang ingin diajukan" required>
+                              	<input type="text" class="form-control" name="JenisInformasi" placeholder="apa yang ingin diajukan" value="<?= set_value('JenisInformasi') ?>">
+                                <div class="text-red"><?= form_error('JenisInformasi'); ?></div>
                             </div>
 
                       		<div class="mb-3">
@@ -109,7 +113,7 @@
                             
                               <div class="mb-3">
                               <label class="form-label">Kesimpulan <span class="form-label-description">-</span></label>
-                              <textarea class="form-control" name="Kesimpulan" rows="6" placeholder="Content.."></textarea>
+                              <textarea class="form-control" name="Kesimpulan" rows="6" placeholder="Content.." value="value="<?= set_value('Kesimpulan') ?>></textarea>
                             </div>
 
                             <input type="hidden" name="tanggal" value=" <?= date('Y-m-d'); ?>">

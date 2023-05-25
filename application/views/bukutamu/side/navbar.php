@@ -25,7 +25,7 @@
                           <span class="avatar avatar-sm" style="background-image: url(<?= base_url('./dist/img/profile/fandy.webp') ?>)"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                          <a class="dropdown-item"><?= $this->session->userdata['nama'] ?></a>
+                          <a class="dropdown-item"><?= $this->input->cookie('user', true); ?></a>
                           <a href="<?= base_url('index.php/Auth/logout') ?>" class="dropdown-item">Log out</a>
                         </div>
                       </div>
