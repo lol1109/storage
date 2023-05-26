@@ -2,7 +2,7 @@
         <!-- Page body -->
         <div class="page-body">
           <div class="container-xl d-flex flex-column justify-content-center">
-          	<form action="<?= base_url('index.php/Cabang/tambah_data_cabang') ?>" method="post">
+          	<form action="<?= base_url('Cabang/tambah_data_cabang') ?>" method="post">
           	<div class="row">
               <div class="col-md-3"></div>
           		<div class="col-md-6">

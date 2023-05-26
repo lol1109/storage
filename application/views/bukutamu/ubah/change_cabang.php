@@ -3,7 +3,7 @@
         <div class="page-body">
           <div class="container-xl">
             <?php foreach($tamu as $dt) : ?>
-          	<form action="<?= base_url('index.php/Cabang/Ubah') ?>" method="post">
+          	<form action="<?= base_url('Cabang/Ubah') ?>" method="post">
           	<div class="row">
           		<div class="col-md-12">
                 <div class="card">

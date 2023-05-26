@@ -22,9 +22,17 @@
 			$pass = $this->input->post('password');
 			$akun = $this->db->get_where('user', ['username' => $user])->row_array();
 
+			// if($this->input->post('username') != $akun['username']) {
+			// 	$uniq = '|is_unique[user.username]';
+			// } else {
+			// 	$uniq = '';
+			// }
 			
-				$rules = $this->Authentication->rules();
-				$this->form_validation->set_rules($rules);
+			// $this->form_validation->set_rules('username', 'username', 'required|max_length[100]|min_length[4]'.$uniq);
+			// $this->form_validation->set_rules('password', 'password', 'required|max_length[100]|min_length[3]');
+
+			$rules = $this->Authentication->rules();
+			$this->form_validation->set_rules($rules);
 
 			if ($this->form_validation->run() === TRUE){
 
@@ -43,29 +51,41 @@
 					'secure' => TRUE,
 				);
 				$this->input->set_cookie($cookie);
-				return redirect('index.php/Fungsi/index');
-				}else {
+				return redirect('Fungsi/index');
+				}
+				else {
 					$this->session->set_flashdata('eror', '<div class="alert alert-danger" role="alert"> Username Atau Password Salah! </div>');
+					$data = [ 'title' => 'Log In'];
+					$this->load->view('bukutamu/side/heading.php', $data);
 					return $this->load->view('bukutamu/auth/login.php');
 				
 				}	
-				}	
+				}
+				else {
+					$this->session->set_flashdata('eror', '<div class="alert alert-danger" role="alert"> Username Atau Password Salah! </div>');
+					$data = [ 'title' => 'Log In'];
+					$this->load->view('bukutamu/side/heading.php', $data);
+					return $this->load->view('bukutamu/auth/login.php');
+				}
 
 			} else {
+				$data = [ 'title' => 'Log In'];
+				$this->load->view('bukutamu/side/heading.php', $data);
 				return $this->load->view('bukutamu/auth/login.php');
 			} 
 
-			redirect('index.php/Auth/index');
+			redirect('Auth/index');
 				
 		}
 
 		function logout(){
 			$this->session->sess_destroy();
-			redirect('index.php/Auth/index');
+			redirect('Auth/index');
 		}
 
 		function registrasi(){
-			$this->load->view('bukutamu/auth/registrasi.php');
+			$data['title'] = 'Registrasi';
+			$this->load->view('bukutamu/auth/registrasi.php', $data);
 		}
 
 		function registrasi_akun(){
@@ -84,7 +104,7 @@
 			);
 
 			$this->Authentication->tambah_akun($data, 'user');
-			redirect("index.php/Auth/index");
+			redirect("Auth/index");
 		} else {
 			$this->load->view('bukutamu/auth/registrasi.php');
 		}

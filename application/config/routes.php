@@ -55,4 +55,5 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['tamu'] = 'Fungsi';
 $route['cabang'] = 'Cabang';
-$route['petuags'] = 'Petugas';
+$route['petugas'] = 'Petugas';
+$route['error'] = 'Error';

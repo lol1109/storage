@@ -12,7 +12,7 @@ class Fungsi extends CI_Controller {
 	{
 
 		$data = [
-
+			'title' => 'Data Tamu',
 			'tamu' => $this->Conection->tampil_data_join()->result(),
 			'hasil' =>  $this->Conection->tampil_jumlah_property()->num_rows(),
 			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
@@ -20,7 +20,7 @@ class Fungsi extends CI_Controller {
 			'notif' => $this->Conection->data_baru()->result(),
 		];
 
-		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/data/data.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
@@ -32,9 +32,10 @@ class Fungsi extends CI_Controller {
 		$data = [
 			'cabang' => $this->Conection->cabang()->result(),
 			'petugas' => $this->Conection->petugas()->result(),
+			'title' => 'Tambah Data',
 		];
 
-		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/tambah/insert.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
@@ -73,28 +74,29 @@ class Fungsi extends CI_Controller {
 			'tanggal' => $tanggal,
 		);
 		$this->Conection->tambah_data($data, 'tamu');
-		redirect('index.php/Fungsi/index');
+		redirect('Fungsi/index');
 		} 
 
 		else {
 			$data = [
 			'cabang' => $this->Conection->cabang()->result(),
 			'petugas' => $this->Conection->petugas()->result(),
+			'title' => 'Tambah Data',
 		];
 
-		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		return $this->load->view('bukutamu/tambah/insert.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
 		}
-		redirect('index.php/Fungsi/index');
+		redirect('Fungsi/index');
 		
 	}   
 
 	public function hapus($id){
 		$data = array('id_tamu' => $id);
 		$this->Conection->hapus_data($data, 'tamu');
-		redirect('index.php/Fungsi/index');
+		redirect('Fungsi/index');
 	}
 
 	public function Edit($id){
@@ -103,8 +105,9 @@ class Fungsi extends CI_Controller {
 			'tamu' => $this->Conection->Edit_data($where, 'tamu')->result(),
 			'cabang' => $this->Conection->cabang()->result(),
 			'petugas' => $this->Conection->petugas()->result(),
+			'title' => 'Edit Data',
 		);
-		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/ubah/change.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
@@ -141,6 +144,10 @@ class Fungsi extends CI_Controller {
 		);
 
 		$this->Conection->ubah_data($where, $data, 'tamu');
-		redirect('index.php/Fungsi/index');
+		redirect('Fungsi/index');
 	}
+
+	function error(){
+			$this->load->view('bukutamu/side/error.php');
+		}
 }

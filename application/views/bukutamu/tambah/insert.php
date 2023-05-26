@@ -3,7 +3,7 @@
         <div class="page-body justify-content-center">
           <div></div>
           <div class="container-xl d-flex flex-column justify-content-center ">
-          	<form action="<?= base_url('index.php/Fungsi/tambah_data') ?>" method="post">
+          	<form action="<?= base_url('Fungsi/tambah_data') ?>" method="post">
           	<div class="row">
               <div class="col-md-3"></div>
           		<div class="col-md-6">

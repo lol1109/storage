@@ -14,9 +14,10 @@
 		public function data(){
 			$data = [
 			'petugas' => $this->Conection->petugas()->result(),
+			'title' => 'Data Petugas',
 		];
 
-		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/data/data_petugas.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
@@ -25,9 +26,10 @@
 	public function tambah_petugas(){
 		$data = [
 			'cabang' => $this->Conection->cabang()->result(),
+			'title' => 'Tambah Petugas',
 		];
 
-		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/tambah/insert_petugas.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
@@ -55,9 +57,10 @@
 	} else {
 		$data = [
 			'cabang' => $this->Conection->cabang()->result(),
+			'title' => 'Tambah Petugas',
 		];
 
-		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/tambah/insert_petugas.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
@@ -67,7 +70,7 @@
 	public function hapus_petugas($id){
 		$data = array('id_petugas' => $id);
 		$this->Conection->hapus_data($data, 'petugas');
-		redirect('index.php/Petugas/data');
+		redirect('Petugas/data');
 	}
 
 	public function Edit($id){
@@ -76,8 +79,9 @@
 			'tamu' => $this->Conection->Edit_data($where, 'petugas')->result(),
 			'cabang' => $this->Conection->cabang()->result(),
 			'petugas' => $this->Conection->petugas()->result(),
+			'title' => 'Edit Petugas',
 		);
-		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/ubah/change_petugas.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
@@ -102,7 +106,7 @@
 		);
 
 		$this->Conection->ubah_data($where, $data, 'petugas');
-		redirect('index.php/Petugas/data');
+		redirect('Petugas/data');
 	}
 
 	}

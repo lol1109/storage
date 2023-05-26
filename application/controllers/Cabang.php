@@ -13,17 +13,18 @@
 	public function data(){
 		$data = [
 			'cabang' => $this->Conection->cabang()->result(),
+			'title' => 'Data Cabang',
 		];
 
-		$this->load->view('bukutamu/side/heading.php');
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/data/data_cabang.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
 	}
 
 	public function tambah_cabang(){
-
-		$this->load->view('bukutamu/side/heading.php');
+			$data['title'] = 'Tambah Cabang';
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/tambah/insert_cabang.php');
 		$this->load->view('bukutamu/side/footer.php');
@@ -43,9 +44,10 @@
 		);
 
 		$this->Conection->tambah_data($data, 'cabang');
-		redirect('index.php/Cabang/data');
+		redirect('Cabang/data');
 	} else {
-		$this->load->view('bukutamu/side/heading.php');
+		$data['title'] = 'Tambah Cabang';
+		$this->load->view('bukutamu/side/heading.php', $data);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/tambah/insert_cabang.php');
 		$this->load->view('bukutamu/side/footer.php');
@@ -56,7 +58,7 @@
 	public function hapus_cabang($id){
 		$data = array('id_cabang' => $id);
 		$this->Conection->hapus_data($data, 'cabang');
-		redirect('index.php/Cabang/data');
+		redirect('Cabang/data');
 	}
 
 	public function Edit($id){
@@ -66,7 +68,8 @@
 			'cabang' => $this->Conection->cabang()->result(),
 			'petugas' => $this->Conection->petugas()->result(),
 		);
-		$this->load->view('bukutamu/side/heading.php');
+		$data1['title'] = 'Edit Cabang';
+		$this->load->view('bukutamu/side/heading.php', $data1);
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/ubah/change_cabang.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
@@ -87,7 +90,7 @@
 		);
 
 		$this->Conection->ubah_data($where, $data, 'cabang');
-		redirect('index.php/Cabang/data');
+		redirect('Cabang/data');
 	}
 
 	}
