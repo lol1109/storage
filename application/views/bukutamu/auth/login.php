@@ -19,7 +19,7 @@
                 <label class="form-label">
                   Password
                   <span class="form-label-description">
-                    <a href="#">I forgot password</a>
+                    <a href="<?= base_url('Auth/fgpass') ?>">I forgot password</a>
                   </span>
                 </label>
                 <div class="input-group input-group-flat">

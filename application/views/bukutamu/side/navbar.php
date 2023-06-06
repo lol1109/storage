@@ -53,14 +53,17 @@
                               <a class="dropdown-item" href="<?= base_url('Fungsi/tambah') ?>">
                                 tamu
                               </a>
+                              <?php if ($this->session->userdata('akses') == "admin") { ?>
                               <a class="dropdown-item" href="<?= base_url('Petugas/tambah_petugas') ?>">
                                 petugas
                               </a>
                               <a class="dropdown-item" href="<?= base_url('Cabang/tambah_cabang') ?>">
                                 cabang
                               </a>
+                              <?php } ?>
                             </div>
                           </li>
+                          <?php if ($this->session->userdata('akses') == "admin") { ?>
                           <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#navbar-third" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
                               <span class="nav-link-title">
@@ -76,6 +79,22 @@
                               </a>
                               <a class="dropdown-item" href="<?= base_url('Fungsi/error') ?>">
                                 user
+                              </a>
+                            </div>
+                          </li>
+                          <?php } ?>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#navbar-third" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
+                              <span class="nav-link-title">
+                                rekap
+                              </span>
+                            </a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="<?= base_url('Rekap/grafik') ?>">
+                                grafik
+                              </a>
+                              <a class="dropdown-item" href="<?= base_url('Rekap/cetak_grafik_pdf') ?>">
+                                pdf
                               </a>
                             </div>
                           </li>

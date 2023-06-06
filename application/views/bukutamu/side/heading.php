@@ -35,4 +35,5 @@
   </head>
   <body >
     <script src="<?= base_url('/dist/js/demo-theme.min.js?1674944402') ?>"></script>
+    <script src="<?= base_url('/dist/package/Chart.js') ?>"></script>
         <div class="page">

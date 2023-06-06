@@ -6,11 +6,13 @@
         <form action="<?= base_url('Auth/registrasi_akun') ?>" class="card card-md" method="post" autocomplete="off" validate>
           <div class="card-body">
             <h2 class="card-title text-center mb-4">Create new account</h2>
-
+            <div class="text-center mb-4">
+                <?= $this->session->flashdata('eror'); ?>
+              </div>
             <div class="mb-3">
-                <label class="form-label">Email Adress</label>
-                <input type="text" class="form-control <?= form_error('email') ? 'invalid' : '' ?>" name="email" id="email" placeholder="your" value="<?= set_value('email') ?>">
-                <div class="text-red"><?= form_error('email'); ?></div>
+                <label class="form-label">Nama Petugas</label>
+                <input type="text" class="form-control <?= form_error('nama_petugas') ? 'invalid' : '' ?>" name="nama_petugas" id="nama_petugas" placeholder="your" value="<?= set_value('nama_petugas') ?>">
+                <div class="text-red"><?= form_error('nama_petugas'); ?></div>
               </div>
 
              <div class="mb-3">
@@ -31,6 +33,10 @@
               </div>
               <div class="text-red text-muted"><?= form_error('password'); ?></div>
             </div>
+
+            <?php foreach ($cabang as $dt) : //dt = data ?>
+             <input type="hidden" name="cabang" value="<?= $dt->id_cabang; ?>"> 
+            <?php endforeach; ?>
             
             <div class="mb-3">
               <label class="form-check">

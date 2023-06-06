@@ -1,13 +1,14 @@
       <div class="page-wrapper">
         <!-- Page body -->
-        <div class="page-body">
-          <div class="container-xl">
+         <div class="page-body justify-content-center">
+            <div class="container-xl d-flex flex-column justify-content-center ">
             <?php foreach($tamu as $dt) : ?>
           	<form action="<?= base_url('Petugas/Ubah') ?>" method="post">
           	<div class="row">
-          		<div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
+          		<div class="col-md-3"></div>
+              <div class="col-md-6">
+                <div class="card justify-content-center">
+                  <div class="card-header bg-primary text-white">
                     <h3 class="card-title">Ubah Data Tamu</h3>
                   </div>
                   <div class="card-body">
@@ -48,6 +49,7 @@
                         <?php endforeach; ?>
                   </div>
                 </div>
+                <div class="col-md-3"></div>
               </div>
           	</div>
          </form>

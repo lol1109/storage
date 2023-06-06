@@ -9,18 +9,26 @@
 		{
 			parent::__construct();
 			$this->load->model('Conection');
+			$this->load->model('Rules');
 		}
 
 		public function data(){
+			$akses = $this->session->userdata('akses');
+
+			
 			$data = [
 			'petugas' => $this->Conection->petugas()->result(),
 			'title' => 'Data Petugas',
 		];
 
-		$this->load->view('bukutamu/side/heading.php', $data);
-		$this->load->view('bukutamu/side/navbar.php');
-		$this->load->view('bukutamu/data/data_petugas.php', $data);
-		$this->load->view('bukutamu/side/footer.php');
+		if ($akses == "admin") {
+			$this->load->view('bukutamu/side/heading.php', $data);
+			$this->load->view('bukutamu/side/navbar.php');
+			$this->load->view('bukutamu/data/data_petugas.php', $data);
+			$this->load->view('bukutamu/side/footer.php');
+			} else {
+				$this->load->view('bukutamu/side/akses.php');
+			}
 	}
 
 	public function tambah_petugas(){
@@ -36,7 +44,7 @@
 	}
 
 	public function tambah_data_petugas(){
-		$rules = $this->Conection->rules2();
+		$rules = $this->Rules->rules4();
 		$this->form_validation->set_rules($rules);
 
 	if ($this->form_validation->run() === TRUE) {
@@ -48,7 +56,7 @@
 		$data = array(
 			'nama_petugas' => $nama,
 			'username' => $username,
-			'password' => $password,
+			'password' => password_hash($password, PASSWORD_DEFAULT),
 			'id_cabang' => $id_cabang,
 		);
 
@@ -97,7 +105,7 @@
 		$data = array(
 			'nama_petugas' => $nama,
 			'username' => $username,
-			'password' => $pass,
+			'password' => password_hash($pass, PASSWORD_DEFAULT),
 			'id_cabang' => $id_cabang,
 		);
 

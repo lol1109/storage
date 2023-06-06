@@ -8,12 +8,17 @@
           		<div class="col-md-6">
                 <div class="card">
                   <div class="card-header bg-primary text-white">
-                    <h3 class="card-title">Tambah Data Petugas </h3>
+                     <div class="col-sm-10">
+                        <h3 class="card-title">Tambah Data Cabang </h3>
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="btn btn-success" href="<?= base_url('Fungsi/index'); ?>">Kembali</a>
+                    </div>
                   </div>
                     <div class="card-body">
                   	 		<div class="mb-3">
                                 <label class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="Nama" placeholder="Budi" value="<?= set_value('Nama') ?>">
+                                <input type="text" class="form-control" name="Nama" placeholder="Elang Motor Pekanbaru" value="<?= set_value('Nama') ?>">
                                 <div class="text-red"><?= form_error('Nama'); ?></div>
                             </div>
 

@@ -17,7 +17,7 @@
                               Total
                             </div>
                             <div class="text-muted">
-                              12 waiting payments
+                              <?= $hasil2; ?>
                             </div>
                           </div>
                         </div>
@@ -38,7 +38,7 @@
                               Total Bulan Ini
                             </div>
                             <div class="text-muted">
-                                <?= $hasil2; ?>
+                                <?= $hasil3; ?>
                             </div>
                           </div>
                         </div>
@@ -94,36 +94,24 @@
             <div class="col-lg-12">
               <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">Daftar Tamu <?= $this->input->cookie('expire', true); ?></h3>
-
+                    <div class="col-3">
+                      <h3 class="card-title">Daftar Tamu</h3>
+                    </div>
+                    <div class="col-8"></div>
+                    <div class="col-3">
+                      <a class="btn btn-success" href="<?= base_url('Fungsi/cetak_pdf'); ?>">Print</a>
+                    </div>
                   </div>
-                  <!-- <div class="card-body border-bottom py-3">
-                     <div class="input-icon">
-                      <form action="<?= base_url('Fungsi/cari') ?>" method="get" autocomplete="off">
-                      <div class="input-group mb-0">
-                      <input type="text" name="S" class="form-control" placeholder="Search…">
-                      <button class="btn btn-primary" name="cari" value="search" type="submit">Cari</button>
-                     </div>
-                   </form>
-                 </div>
-                  </div> -->
-
                   <div class="table-responsive">
                     <table id="data" class="table card-table table-vcenter border-dark text-nowrap">
                       <thead class="thead-dark">
                           <th>No</th>
                           <th>Name</th>
                           <th>Kontak</th>
-                          <th>No Wa</th>
-                          <th>Bidang</th>
-                          <th>Tujuan</th>
-                          <th>Jenis Informasi</th>
+                          <th>Cabang</th>
                           <th>Informasi</th>
-                          <th>cabang</th>
-                          <th>petugas</th>
-                          <th>Kesimpulan</th>
-                          <th>Tanggal</th>
-                          <th class="w-5"></th>
+                          <th>Petugas</th>
+                          <th>Action</th>
                         </tr>
                         </tr>
                       </thead>
@@ -133,20 +121,21 @@
                       ?>
                       <tbody>
                         <tr>
-                          <td><?= $no; ?></td>
-                          <td><?= $dt->Nama; ?></td>
-                          <td><?= $dt->Kontak; ?></td>
-                          <td><?= $dt->noWa; ?></td>
-                          <td><?= $dt->Bidang; ?></td>
-                          <td><?= $dt->Tujuan; ?></td>
-                          <td><?= $dt->JenisInformasi; ?></td>
-                          <td><?= $dt->Informasi; ?></td>
-                          <td><?= $dt->nama_cabang; ?></td>
-                          <td><?= $dt->nama_petugas; ?></td>
-                          <td><?= $dt->Kesimpulan; ?></td>
-                          <td><?= date('Y-M-d', strtotime($dt->tanggal)); ?></td>
-                          <td>
-                            <?= anchor('Fungsi/Edit/'.$dt->id_tamu, '<button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <td rowspan="2"><?= $no; ?></td>
+                          <td><?= $dt->Nama; ?><br><?= $dt->Tujuan; ?></td>
+                          <td><?= $dt->Kontak; ?><br><?php  if($dt->Kontak == $dt->noWa) { echo "-"; } else {?>
+                            <?= $dt->noWa; }?></td>
+                          <td><?= $dt->nama_cabang; ?><br><?= $dt->Bidang; ?></td>
+                          <td><?= $dt->JenisInformasi; ?><br><?= $dt->Informasi; ?></td>
+                          <td><?= $dt->nama_petugas; ?><br><?= date('Y-M-d', strtotime($dt->tanggal)); ?></td>
+                          <td><a class="btn btn-primary" href="#navbar-third" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
+                              <span class="nav-link-title">
+                               ACTION
+                              </span>
+                            </a>
+                           <div class="dropdown-menu dropdown-menu-arrow bg-dark text-white" id="navbar-third">
+                              <a class="dropdown-item" href="<?= base_url('Fungsi/Edit/'.$this->encryption->encrypt($dt->id_tamu)); ?>">
+                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-plus text-blue" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
                                 <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
@@ -154,20 +143,29 @@
                                 <path d="M9 14l6 0"></path>
                             </svg>
                             <span>
-                              Edit
-                            </span>
-                          </button>'); ?> 
-                            <a style="color: white;" href="#" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#modal-small">
-                                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-x " width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    EDIT
+                              </a>
+                            <a class="dropdown-item" href="<?= base_url('Fungsi/hapus/'.$this->encryption->encrypt($dt->id_tamu));?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-x text-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                               <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
                                               <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
                                               <path d="M10 12l4 4m0 -4l-4 4"></path>
                                               </svg>
-                                              <span>
-                                                Hapus
-                                              </span>
-                                            </a>
+                                   HAPUS
+                            </a>
+                           </div>
+                            <!-- <a style="color: white;" href="#" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#modal-small">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-x " width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                                <path d="M10 12l4 4m0 -4l-4 4"></path>
+                              </svg> 
+                              <span>
+                                  Hapus
+                              </span>
+                             </a> -->
                           </td>
                         </tr>
                       </tbody>
@@ -186,12 +184,27 @@
       <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
+            <div class="modal-title">action?</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">batal</button>
+            <?= anchor('Fungsi/Edit/'.$dt->id_tamu, '<button type="button" class="btn btn-primary" data-bs-dismiss="modal">edit data ini</button>'); ?>
+            <?= anchor('Fungsi/hapus/'.$dt->id_tamu, '<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Ya, hapus data ini</button>'); ?>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-small" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
             <div class="modal-title">hapus data?</div>
             <div>apakah anda yakin menghapus data ini</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">batal</button>
-            <?= anchor('Fungsi/hapus/'.$dt->id_tamu, '<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Ya, hapus data ini</button>'); ?>
+            <?= anchor('Petugas/hapus_petugas/'.$dt->id_petugas, '<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Ya, hapus data ini</button>'); ?>
             
           </div>
         </div>

@@ -8,7 +8,12 @@
           		<div class="col-md-6">
                 <div class="card">
                   <div class="card-header bg-primary text-white">
-                    <h3 class="card-title">Tambah Data Petugas</h3>
+                   <div class="col-sm-10">
+                        <h3 class="card-title">Tambah Data Petugas </h3>
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="btn btn-success" href="<?= base_url('Fungsi/index'); ?>">Kembali</a>
+                    </div>
                   </div>
                   <div class="card-body">
 
