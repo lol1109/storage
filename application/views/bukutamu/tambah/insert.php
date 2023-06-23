@@ -7,13 +7,10 @@
           		<div class="col-md-12">
                 <div class="card justify-content-center">
                   <div class="card-header bg-primary text-white">
-                    <div class="col-md-3">
                     <h3 class="card-title">Tambah Data Tamu</h3>
-                    </div>
-                    <div class="col-md-8"></div>
-                    <div class="col-md-3">
-                     <a class="btn btn-success" href="<?= base_url('Fungsi/index'); ?>">Kembali</a>
-                    </div>
+                    <div class="card-actions">
+                     <a class="btn btn-success" href="<?= base_url('Tamu'); ?>">Kembali</a>
+                   </div>
                   </div>
                   <div class="card-body">
                     <div class="row">

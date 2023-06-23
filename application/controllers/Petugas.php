@@ -9,7 +9,7 @@
 		{
 			parent::__construct();
 			$this->load->model('Conection');
-			$this->load->model('Rules');
+			$this->load->model('Aturan');
 		}
 
 		public function data(){
@@ -44,7 +44,7 @@
 	}
 
 	public function tambah_data_petugas(){
-		$rules = $this->Rules->rules4();
+		$rules = $this->Aturan->rules4();
 		$this->form_validation->set_rules($rules);
 
 	if ($this->form_validation->run() === TRUE) {

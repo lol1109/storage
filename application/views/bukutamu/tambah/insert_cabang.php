@@ -8,12 +8,10 @@
           		<div class="col-md-6">
                 <div class="card">
                   <div class="card-header bg-primary text-white">
-                     <div class="col-sm-10">
-                        <h3 class="card-title">Tambah Data Cabang </h3>
-                    </div>
-                    <div class="col-sm-1">
-                        <a class="btn btn-success" href="<?= base_url('Fungsi/index'); ?>">Kembali</a>
-                    </div>
+                    <h3 class="card-title">Tambah Data Cabang</h3>
+                    <div class="card-actions">
+                     <a class="btn btn-success" href="<?= base_url('Cabang'); ?>">Kembali</a>
+                   </div>
                   </div>
                     <div class="card-body">
                   	 		<div class="mb-3">

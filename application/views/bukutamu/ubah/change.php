@@ -12,9 +12,7 @@
                     <h3 class="card-title">Ubah Data Tamu</h3>
                     </div>
                     <div class="col-md-8"></div>
-                    <div class="col-md-3">
-                     <a class="btn btn-success" href="<?= base_url('Fungsi/index'); ?>">Kembali</a>
-                    </div>
+                     <a class="btn btn-success" href="<?= base_url('Tamu'); ?>">Kembali</a>
                   </div>
                   <div class="card-body">
                     <input type="hidden" name="id_tamu" value="<?= $dt->id_tamu; ?>">

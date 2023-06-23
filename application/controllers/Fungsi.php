@@ -6,15 +6,10 @@ class Fungsi extends CI_Controller {
 	function  __construct(){
 		parent::__construct();
 		$this->load->model('Conection');
-		$this->load->model('Rules');
-		$this->load->library('encryption');
-		$key = $this->encryption->initialize(
-			array(
-				'chiper' => 'aes-128',
-				'mode' => 'ctr',
-				'key' => 'qw43ertyuiopl52mnbvcxzasdfghjk19',
-			)
-		);
+		$this->load->model('Aturan');
+		$this->load->helper('url');
+		$this->load->model('Aturan');
+		$this->load->library('form_validation');
 	}
 
 	public function index()
@@ -72,7 +67,7 @@ class Fungsi extends CI_Controller {
 
 	public function tambah_data(){
 
-		$rules = $this->Rules->rules5();
+		$rules = $this->Aturan->rules5();
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() === TRUE) {
@@ -123,14 +118,14 @@ class Fungsi extends CI_Controller {
 	}   
 
 	public function hapus($id){
-		$decrypt = $this->encryption->decrypt($id);
+		$decrypt = base64_decode($id);
 		$data = array('id_tamu' => $decrypt);
 		$this->Conection->hapus_data($data, 'tamu');
 		redirect('Fungsi/index');
 	}
 
 	public function Edit($id){
-		$decrypt = $this->encryption->decrypt($id);
+		$decrypt =  base64_decode($id);
 		$where = array('id_tamu' => $decrypt);
 		$data = array( 
 			'tamu' => $this->Conection->Edit_data($where, 'tamu')->result(),
@@ -146,7 +141,7 @@ class Fungsi extends CI_Controller {
 
 	public function Ubah($tamu){
 
-		$rules = $this->Rules->rules2();
+		$rules = $this->Aturan->rules2();
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() === TRUE) {
@@ -236,6 +231,480 @@ class Fungsi extends CI_Controller {
         		$this->load->view('bukutamu/test.php', $data);
         	}
     	}
+
+    	function uploadImage(){
+    		$data = [
+			'title' => 'Upload Image',
+			'tamu' => $this->Conection->tampil_data_tamu()->result(),
+		];
+
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/index.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+    	}
+
+    	function upload(){
+    		$nama = $this->input->post('Nama');
+    		$merek = $this->input->post('merek');
+ 			$tanggal = $this->input->post('tanggal');
+
+    		$rules = $this->Aturan->rules6();
+			$this->form_validation->set_rules($rules);
+
+			if ($this->form_validation->run() === TRUE) {
+
+    		
+    		$config['upload_path'] = FCPATH.'upload/akad/';
+        	$config['allowed_types'] = 'gif|jpg|png';
+        	$config['max_size'] = 2000;
+
+    		$this->load->library('upload', $config);
+
+    		if (!$this->upload->do_upload('gambar')) {
+    			$data = [
+				'title' => 'Upload Image',
+				'eror' => $this->upload->display_errors(),
+				'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/index.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+
+    		}
+    		else 
+        {	
+        	
+        	$where = array(
+        		'nama' => $nama, 
+        		'merek' => $merek, 
+        		'tanggal' => $tanggal,
+        		'gambar' => $this->upload->data(), 
+        	);
+
+    			$this->Conection->tambah_data_akad($where['nama'], $where['merek'], $where['tanggal'], $where['gambar']);
+    			redirect('Fungsi/akad');
+        }
+    		} else {
+    			$data = [
+				'title' => 'Upload Image',
+				'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/index.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+    		}
+    	}
+
+    	function akad(){
+    			$data = [
+				'title' => 'Data Akad',
+				'akad' => $this->Conection->tampil_akad()->result(),
+				'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			];
+
+			$this->load->view('bukutamu/side/heading.php', $data);
+			$this->load->view('bukutamu/side/navbar.php');
+			$this->load->view('bukutamu/back/hasil.php', $data);
+			$this->load->view('bukutamu/side/footer.php');
+    	}
+
+    	public function hapus_akad($id){
+		$data = array('id' => $id);
+		$this->Conection->hapus_data($data, 'akad');
+		redirect('Fungsi/akad');
+		}
+
+		public function edit_akad($id){
+		$decrypt =  base64_decode($id);
+		$where = array('id' => $decrypt);
+		$data = array( 
+			'akad' =>$this->Conection->Edit_data($where, 'akad')->result(),
+			'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			'title' => 'Edit Data Akad',
+		);
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/update.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+		}
+
+
+		public function ubah_akad($ubah){
+		$decrypt =  base64_decode($ubah);
+		$where = array('id' => $decrypt);
+		$id = $this->input->post('id');
+		$nama = $this->input->post('Nama');
+    	$merek = $this->input->post('merek');
+ 		$tanggal = $this->input->post('tanggal');
+
+ 			$rules = $this->Aturan->rules6();
+			$this->form_validation->set_rules($rules);
+
+			if ($this->form_validation->run() === TRUE) {
+
+			$config['upload_path'] = FCPATH.'upload/akad/';
+        	$config['allowed_types'] = 'gif|jpg|png';
+        	$config['max_size'] = 2000;
+
+    		$this->load->library('upload', $config);
+
+    		if (!$this->upload->do_upload('gambar')) {
+    			$data = [
+				'akad' =>$this->Conection->Edit_data($where, 'akad')->result(),
+				'title' => 'Edit Data Akad',
+				'eror' => $this->upload->display_errors(),
+				'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/update.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+
+    		} else {
+
+		$data = array(	
+			'id' => $id,
+			'nama' => $nama,
+			'tanggal' => $tanggal,
+			'merek' => $merek,
+			'gambar' => $this->upload->data(),
+		);
+
+
+		$this->Conection->ubah_data_akad($data['id'], $data['nama'], $data['tanggal'], $data['merek'],$data['gambar']);
+		redirect('Fungsi/akad');
+		}
+		} else {
+			$data = [
+				'akad' =>$this->Conection->Edit_data($where, 'akad')->result(),
+				'title' => 'Edit Data Akad',
+				'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/update.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+		}
+
+	}
+
+	function datahome(){
+    			$data = [
+				'title' => 'Data Home',
+				'home' => $this->Conection->tampil_home()->result(),
+			];
+
+			$this->load->view('bukutamu/side/heading.php', $data);
+			$this->load->view('bukutamu/side/navbar.php');
+			$this->load->view('bukutamu/back/h_home.php', $data);
+			$this->load->view('bukutamu/side/footer.php');
+    	}
+
+    	function tm_home(){
+    		$data = [
+			'title' => 'Tambah Data Home',
+		];
+
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/t_home.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+    	}
+
+    function tambah_home(){
+
+    		$judul = $this->input->post('judul');
+    		$desc = $this->input->post('desc');
+ 			$action = $this->input->post('action');
+
+ 			$rules = $this->Aturan->rules7();
+			$this->form_validation->set_rules($rules);
+
+			if ($this->form_validation->run() === TRUE) {
+
+    		
+    		$config['upload_path'] = FCPATH.'upload/home/';
+        	$config['allowed_types'] = 'gif|jpg|png';
+        	$config['max_size'] = 2000;
+
+    		$this->load->library('upload', $config);
+
+    		if (!$this->upload->do_upload('gambar')) {
+    			$data = [
+				'title' => 'Upload Image',
+				'eror' => $this->upload->display_errors(),
+				'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/t_home.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+
+    		} else 
+        {	
+        	
+        	$data1 = array(
+        		'judul_besar' => $judul, 
+        		'desc' => $desc, 
+        		'action' => $action,
+        		'gambar' => $this->upload->data(), 
+        	);
+
+    			$this->Conection->tambah_data_home($data1['judul_besar'], $data1['desc'], $data1['action'], $data1['gambar']);
+    			redirect('Fungsi/datahome');
+        }
+    	} else {
+    		$data = [
+				'title' => 'Upload Image',
+				'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/t_home.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+    	}
+    	}
+
+    	public function hapus_home($id){
+		$data = array('id' => $id);
+		$this->Conection->hapus_data($data, 'home');
+		redirect('Fungsi/datahome');
+		}
+
+		public function edit_home($id){
+		$decrypt =  base64_decode($id);
+		$where = array('id' => $decrypt);
+		$data = array( 
+			'home' =>$this->Conection->Edit_data($where, 'home')->result(),
+			'title' => 'Edit Data home',
+		);
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/u_home.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+		}
+
+    	public function ubah_home($ubah){
+		$decrypt =  base64_decode($ubah);
+		$where = array('id' => $decrypt);
+		$id = $this->input->post('id');
+			$judul = $this->input->post('judul');
+    		$desc = $this->input->post('desc');
+ 			$action = $this->input->post('action');
+
+ 			$rules = $this->Aturan->rules7();
+			$this->form_validation->set_rules($rules);
+
+			if ($this->form_validation->run() === TRUE) {
+
+			$config['upload_path'] = FCPATH.'upload/home/';
+        	$config['allowed_types'] = 'gif|jpg|png';
+        	$config['max_size'] = 2000;
+
+    		$this->load->library('upload', $config);
+
+    		if (!$this->upload->do_upload('gambar')) {
+    			$data = [
+				'home' =>$this->Conection->Edit_data($where, 'home')->result(),
+				'title' => 'Edit Data home',
+				'eror' => $this->upload->display_errors(),
+				'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/u_home.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+
+    		} else {
+
+		$data1 = array(
+				'id' => $id,
+        		'judul_besar' => $judul, 
+        		'desc' => $desc, 
+        		'action' => $action,
+        		'gambar' => $this->upload->data(), 
+        	);
+
+
+
+		$this->Conection->ubah_data_home($data1['id'], $data1['judul_besar'], $data1['desc'], $data1['action'], $data1['gambar']);
+		redirect('Fungsi/datahome');
+	}
+	} else {
+		    	$data = [
+				'home' =>$this->Conection->Edit_data($where, 'home')->result(),
+				'title' => 'Edit Data home',
+				'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/u_home.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+	}
+
+	}
+
+	function datasyarat(){
+    			$data = [
+				'title' => 'Data Syarat',
+				'syarat' => $this->Conection->tampil_syarat()->result(),
+			];
+
+			$this->load->view('bukutamu/side/heading.php', $data);
+			$this->load->view('bukutamu/side/navbar.php');
+			$this->load->view('bukutamu/back/h_syarat.php', $data);
+			$this->load->view('bukutamu/side/footer.php');
+    	}
+
+    	function tm_syarat(){
+    		$data = [
+			'title' => 'Tambah Data syarat',
+		];
+
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/t_syarat.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+    	}
+
+    	function tambah_syarat(){
+
+    		$judul = $this->input->post('judul');
+    		$desc = $this->input->post('desc');
+
+    		$rules = $this->Aturan->rules8();
+			$this->form_validation->set_rules($rules);
+
+			if ($this->form_validation->run() === TRUE) {
+    		
+    		$config['upload_path'] = FCPATH.'upload/syarat/';
+        	$config['allowed_types'] = 'jpeg|jpg|png';
+        	$config['max_size'] = 2000;
+
+    		$this->load->library('upload', $config);
+
+    		if (!$this->upload->do_upload('gambar')) {
+    			$data = [
+				'title' => 'Upload Image',
+				'eror' => $this->upload->display_errors(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/t_syarat.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+
+    		} else 
+        {	
+        	
+        	$data1 = array(
+        		'judul_besar' => $judul, 
+        		'desc' => $desc, 
+        		'gambar' => $this->upload->data(), 
+        	);
+
+    			$this->Conection->tambah_data_syarat($data1['judul_besar'], $data1['desc'], $data1['gambar']);
+    			redirect('Fungsi/datasyarat');
+        } 
+    	} else {
+    		$data = [
+				'title' => 'Upload Image',
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/t_syarat.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+    	}
+    	}
+
+    	public function hapus_syarat($id){
+		$data = array('id' => $id);
+		$this->Conection->hapus_data($data, 'persyaratan');
+		redirect('Fungsi/datasyarat');
+		}
+
+		public function edit_syarat($id){
+		$decrypt =  base64_decode($id);
+		$where = array('id' => $decrypt);
+		$data = array( 
+			'syarat' =>$this->Conection->Edit_data($where, 'persyaratan')->result(),
+			'title' => 'Edit Data syarat',
+		);
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/u_syarat.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+		}
+
+		public function ubah_syarat($ubah){
+		$decrypt =  base64_decode($ubah);
+		$where = array('id' => $decrypt);
+		$id = $this->input->post('id');
+			$judul = $this->input->post('judul');
+    		$desc = $this->input->post('desc');
+
+    		$rules = $this->Aturan->rules8();
+			$this->form_validation->set_rules($rules);
+
+			if ($this->form_validation->run() === TRUE) {
+
+			$config['upload_path'] = FCPATH.'upload/syarat/';
+        	$config['allowed_types'] = 'jpeg|jpg|png';
+        	$config['max_size'] = 2000;
+
+    		$this->load->library('upload', $config);
+
+    		if (!$this->upload->do_upload('gambar')) {
+    			$data = [
+				'syarat' =>$this->Conection->Edit_data($where, 'persyaratan')->result(),
+				'title' => 'Edit Data syarat',
+				'eror' => $this->upload->display_errors(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/u_syarat.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+
+    		} else {
+
+		$data1 = array(
+				'id' => $id,
+        		'judul_besar' => $judul, 
+        		'desc' => $desc, 
+        		'gambar' => $this->upload->data(), 
+        	);
+
+
+
+		$this->Conection->ubah_data_syarat($data1['id'], $data1['judul_besar'], $data1['desc'], $data1['gambar']);
+		redirect('Fungsi/datasyarat');
+	}
+	} else {
+		$data = [
+				'syarat' =>$this->Conection->Edit_data($where, 'persyaratan')->result(),
+				'title' => 'Edit Data syarat',
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/u_syarat.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+	}
+	}
+
 }
 
 ?>

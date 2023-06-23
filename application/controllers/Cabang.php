@@ -7,7 +7,7 @@
 		function  __construct(){
 		parent::__construct();
 		$this->load->model('Conection');
-		$this->load->model('Rules');
+		$this->load->model('Aturan');
 		
 	}
 
@@ -32,7 +32,7 @@
 	}
 
 	public function tambah_data_cabang(){
-		$rules = $this->Rules->rules3();
+		$rules = $this->Aturan->rules3();
 		$this->form_validation->set_rules($rules);
 
 	if ($this->form_validation->run() === TRUE) {

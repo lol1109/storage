@@ -1,7 +1,4 @@
 <?php 
-		
-		
-
 	class Conection extends CI_Model
 	{	
 		function  __construct(){
@@ -27,7 +24,7 @@
 		
 		// ========== TAMPIL DATA ============
 		function tampil_data_tamu(){
-			return $this->db->get('tamu', 10);
+			return $this->db->get('tamu');
 		}
 
 		function tampil_data_join(){
@@ -42,6 +39,26 @@
 		// ============= ALL ===============
 		function tampil_data_perbulan(){
 			return $this->db->query("SELECT * FROM tamu ");
+		}
+
+		function tampil_akad(){
+			return $this->db->query("SELECT akad.id, tamu.Nama, akad.merek, akad.tanggal, akad.gambar FROM akad INNER JOIN tamu ON tamu.id_tamu = akad.nama ORDER BY akad.tanggal desc ");
+		}
+
+		function tampil_home(){
+			return $this->db->query("SELECT * FROM home");
+		}
+
+		function tampil_home1(){
+			return $this->db->get('home', 1);
+		}
+
+		function tampil_syarat(){
+			return $this->db->query("SELECT * FROM persyaratan");
+		}
+
+		function tampil_syarat1(){
+			return $this->db->get('persyaratan', 1);
 		}
 
 		function tampil_jumlah_property(){
@@ -79,6 +96,37 @@
 			$this->db->insert($table, $data);
 		}
 
+		function tambah_data_akad($nama, $merek, $tanggal, $gambar){
+			$g = $gambar['file_name'];
+			$this->db->query("INSERT INTO `akad`(`id`, `nama`, `tanggal`, `merek`, `gambar`) VALUES (NULL,'$nama','$tanggal','$merek','$g')");
+		}
+
+		function ubah_data_akad($id ,$nama, $tanggal,$merek, $gambar){
+			$g = $gambar['file_name'];
+			$this->db->query("UPDATE `akad` SET `nama`='$nama',`tanggal`='$tanggal',`merek`='$merek',`gambar`='$g' WHERE akad.id = '$id'");
+		}
+
+		function tambah_data_home($judul, $desc, $action, $gambar){
+			$g = $gambar['file_name'];
+			$this->db->query("INSERT INTO `home`(`id`, `judul_besar`, `desc`, `action`, `image`) VALUES (NULL,'$judul','$desc','$action','$g')");
+		}
+
+		function ubah_data_home($id, $judul, $desc, $action, $gambar){
+			$g = $gambar['file_name'];
+			$this->db->query("UPDATE `home` SET `judul_besar`='$judul',`desc`='$desc',`action`='$action',`image`='$g' WHERE home.id = '$id'");
+		}
+
+		function tambah_data_syarat($judul, $desc, $gambar){
+			$g = $gambar['file_name'];
+			$this->db->query("INSERT INTO `persyaratan`(`id`, `judul_besar`, `desc`, `image`) VALUES (NULL,'$judul','$desc','$g')");
+		}
+
+		function ubah_data_syarat($id, $judul, $desc, $gambar){
+			$g = $gambar['file_name'];
+			$this->db->query("UPDATE `persyaratan` SET `judul_besar`='$judul',`desc`='$desc', `image`='$g' WHERE persyaratan.id = '$id'");
+		}
+
+
 		function hapus_data($data, $table){
 			$this->db->where($data);
 			$this->db->delete($table);
@@ -103,6 +151,10 @@
 
 		function informasiAdmin(){
 			return $this->db->query("SELECT Informasi, COUNT(*) as 'total' FROM tamu GROUP BY Informasi ORDER BY total Desc ");
+		}
+
+		function InformasiCabang(){
+			return $this->db->query("SELECT cabang.nama_cabang, id_tamu, COUNT(*) as 'total' FROM tamu INNER JOIN cabang ON cabang.id_cabang = tamu.cabang GROUP BY cabang ORDER BY total Desc ");
 		}
 
 		// ====================================

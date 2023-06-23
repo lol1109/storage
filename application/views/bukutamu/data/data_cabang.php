@@ -11,9 +11,7 @@
                     <h3 class="card-title">Data Cabang</h3>
                     </div>
                     <div class="col-md-8"></div>
-                    <div class="col-md-3">
                      <a class="btn btn-success" href="<?= base_url('Fungsi/index'); ?>">Kembali</a>
-                    </div>
                   </div>
                   <div class="table-responsive">
                     <table id="data" class="table card-table table-vcenter text-nowrap datatable ">

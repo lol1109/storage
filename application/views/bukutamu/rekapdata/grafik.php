@@ -6,16 +6,11 @@
           <div class="container-xl d-flex flex-column justify-content-center">
             <div class="col-lg-12">
               <div class="card">
-                  <div class="card-header">
-                    <div class="col-md-3">
+                  <div class="card-header bg-primary">
                     <h3 class="card-title">Rekap Data Tamu</h3>
-                    </div>
-                    <div class="col-md-8"></div>
-                    <div class="col-md-3">
-                     <a class="btn btn-success" href="<?= base_url('Fungsi/index'); ?>">Kembali</a>
-                    </div>
-                    <div class="col-8"></div>
-                    <div class="col-3">
+                    <div class="card-actions">
+                     <a class="btn btn-success" href="<?= base_url('Tamu'); ?>">Kembali</a>
+                     <!-- <button class="btn btn-success" onclick="window.print()">Print this page</button> -->
                     </div>
                     </div>
                     <div class="card-body">
@@ -121,6 +116,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- grafik sumber informasi terbanyak -->
                 <div class="row g-1">
                     <div class="col-sm-12">
                         <div class="bg-light text-center rounded p-4">
@@ -129,9 +125,22 @@
                                 <a href="">Show All</a>
                             </div>
                             <canvas id="chinfor"></canvas>
-                            
                         </div>
                     </div>
+                    <?php if ($akses == "admin") { ?>
+                        
+                     <div class="col-sm-12">
+                        <div class="bg-light text-center rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Data Cabang</h6>
+                                <a href="">Show All</a>
+                            </div>
+                            <canvas id="cbgtb"></canvas>
+                        </div>
+                    </div>
+
+                    <?php } ?>
+
                 </div>
               </div>
             </div>
@@ -141,7 +150,7 @@
 </div>
 </div>
 <script type="text/javascript">
-     var ctx = document.getElementById('chinfor').getContext('2d');
+    var ctx = document.getElementById('chinfor').getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'bar',
@@ -194,5 +203,60 @@
             }
         }
     });
+      <?php if ($akses == "admin") { ?>
+    var ctx = document.getElementById('cbgtb').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+        // The data for our dataset
+        data: {
+            labels: [<?php  
+                foreach ($cabang as $dt) {
+                    echo "'".$dt->nama_cabang."', ";
+                    }
+                 ?>],
+            datasets: [{
+                label:'Total penjualan',
+                backgroundColor: [
+                    'rgb(255, 99, 132)',  //postingan instagram
+                    'rgba(55, 119, 255)',  //Iklan facebook
+                    'rgb(60, 179, 113)',  //Iklan instagram
+                    'rgb(175, 238, 239)',  //Iklan google
+                    'rgb(255, 225, 86)', //pencarian google
+                    'rgb(255, 223, 206)', //website
+                    'rgb(255, 181, 194)', //brosur
+                    'rgb(50, 2, 31)', //marketing freelance
+                    'rgb(75, 46, 57)', //youtube
+                    'rgb(108, 89, 110)', //teman kantor
+                    'rgb(111, 125, 140)', //teman kajian
+                    'rgb(119, 160, 169)', //teman suami
+                    'rgb(171, 23, 83)', //teman istri 
+                    'rgb(83, 89, 154)', //Keluagra/saudara
+                    'rgb(6, 141, 157)', //grup wa
+                    'rgb(16, 150, 72)', //wa
+                    'rgb(73, 67, 72)', //teman konsumen elang
+                    ],
+                borderColor: [
+                    'rgb(44, 51, 51)'
+                    ],
+                data: [<?php  
+                    foreach ($cabang as $dt) {
+                    echo $dt->total.", ";
+                    }
+                    ?>]
+            }]
+        },
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+<?php } ?>
 </script>
  	<?php $this->load->view('bukutamu/side/footer.php'); ?>

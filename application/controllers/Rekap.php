@@ -1,6 +1,6 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-require FCPATH. "/vendor/autoload.php";
+require FCPATH. "vendor/autoload.php";
 use Dompdf\Dompdf;
 	/**
 	 * 
@@ -23,9 +23,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
 			'active_s' => 'ALL time',
+			'akses' => $akses,
 		];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -40,9 +42,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_c($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan_c($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
 			'active_s' => 'ALL time',
+			'akses' => 'petugas',
 		];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -62,9 +66,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_mingguA()->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'last 7 days',
 			'active_p' => 'ALL time',
 			'active_s' => 'ALL time',
+			'akses' => $akses,
 			];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -79,9 +85,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_minggu($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan_c($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'last 7 days',
 			'active_p' => 'ALL time',
 			'active_s' => 'ALL time',
+			'akses' => 'petugas',
 			];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -98,9 +106,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_bulanA()->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'last 1 months',
 			'active_p' => 'ALL time',
 			'active_s' => 'ALL time',
+			'akses' => $akses,
 			];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -114,10 +124,13 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_bulan($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan_c($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'last 1 months',
 			'active_p' => 'ALL time',
 			'active_s' => 'ALL time',
+			'akses' => 'petugas',
 		];
+		
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
 			}
@@ -133,9 +146,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_tahunA()->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'last 1 years',
 			'active_p' => 'ALL time',
 			'active_s' => 'ALL time',
+			'akses' => $akses,
 			];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -149,10 +164,13 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_tahun($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan_c($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'last 1 years',
 			'active_p' => 'ALL time',
 			'active_s' => 'ALL time',
+			'akses' => 'petugas',
 		];
+		
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
 			}
@@ -170,10 +188,13 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'last 7 days',
 			'active_s' => 'ALL time',
+			'akses' => $akses,
 		];
+		
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
 			} else {
@@ -185,10 +206,13 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_c($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan_c($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'last 7 days',
 			'active_s' => 'ALL time',
+			'akses' => 'petugas',
 		];
+		
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
 			}
@@ -204,10 +228,13 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'last 1 months',
 			'active_s' => 'ALL time',
+			'akses' => $akses,
 		];
+		
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
 			} else {
@@ -219,10 +246,13 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_c($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan_c($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'last 1 months',
 			'active_s' => 'ALL time',
+			'akses' => 'petugas',
 		];
+		
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
 			}
@@ -238,10 +268,13 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'last 1 years',
 			'active_s' => 'ALL time',
+			'akses' => $akses,
 		];
+		
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
 			} else {
@@ -253,10 +286,13 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_c($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_data_perbulan_c($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'last 1 years',
 			'active_s' => 'ALL time',
+			'akses' => 'petugas',
 		];
+		
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
 			}
@@ -275,9 +311,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
 			'hasil2' => $this->Conection->tampil_jumlah_semua_mingguA()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
 			'active_s' => 'last 7 days',
+			'akses' => $akses,
 		];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -290,9 +328,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_c($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_jumlah_semua_minggu($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
 			'active_s' => 'last 7 days',
+			'akses' => 'petugas',	
 		];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -308,9 +348,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
 			'hasil2' => $this->Conection->tampil_jumlah_semua_bulanA()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
 			'active_s' => 'last 1 months',
+			'akses' => $akses,
 		];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -323,9 +365,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_c($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_jumlah_semua_bulan($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
 			'active_s' => 'last 1 months',
+			'akses' => 'petugas',
 		];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -341,9 +385,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
 			'hasil2' => $this->Conection->tampil_jumlah_semua_tahunA()->num_rows(),
 			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
 			'active_s' => 'last 1 months',
+			'akses' => $akses,
 		];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
@@ -356,9 +402,11 @@ use Dompdf\Dompdf;
 			'hasil1' => $this->Conection->tampil_jumlah_motor_c($cabang)->num_rows(),
 			'hasil2' => $this->Conection->tampil_jumlah_semua_tahun($cabang)->num_rows(),
 			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
 			'active_s' => 'last 1 months',
+			'akses' => 'petugas',
 		];
 
 			$this->load->view('bukutamu/rekapdata/grafik.php', $data);

@@ -1,4 +1,5 @@
 <?php 
+defined('BASEPATH') OR exit('No direct script access allowed');
 	/**
 	 * 
 	 */
@@ -10,7 +11,7 @@
 			parent::__construct();
 			$this->load->model('Authentication');
 			$this->load->model('Conection');
-			$this->load->model('Rules');
+			$this->load->model('Aturan');
 		}
 
 		function index(){
@@ -24,7 +25,7 @@
 			$pass = $this->input->post('password');
 			$akun = $this->db->get_where('petugas', ['username' => $user])->row_array();
 
-			$rules = $this->Rules->rules();
+			$rules = $this->Aturan->rules();
 			$this->form_validation->set_rules($rules);
 
 			if ($this->form_validation->run() === TRUE){
@@ -85,7 +86,7 @@
 		}
 
 		function registrasi_akun(){
-			$rules = $this->Rules->rules1();
+			$rules = $this->Aturan->rules1();
 				$this->form_validation->set_rules($rules);
 
 			if ($this->form_validation->run() === TRUE){

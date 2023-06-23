@@ -3,9 +3,9 @@
         <div class="page-body">
           <div class="container-xl d-flex flex-column justify-content-center">
             <div class="row row-cards">
-                  <div class="col-sm-6 col-lg-3">
+                  <div class="col-3 row-sm-1 col-sm-6 col-md-3">
                     <div class="card card-sm">
-                      <div class="card-body text-center">
+                      <div class="card-body">
                         <div class="row align-items-center">
                           <div class="col-auto">
                             <span class="bg-primary text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
@@ -24,7 +24,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6 col-lg-3">
+                  <div class="col-3 row-sm-1 col-sm-6 col-md-3">
                     <div class="card card-sm">
                       <div class="card-body">
                         <div class="row align-items-center">
@@ -45,7 +45,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6 col-lg-3">
+                  <div class="col-3 col-sm-1 col-sm-6 col-md-3">
                     <div class="card card-sm">
                       <div class="card-body">
                         <div class="row align-items-center">
@@ -67,7 +67,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6 col-lg-3">
+                  <div class="col-3 col-sm-1 col-sm-6 col-md-3">
                     <div class="card card-sm">
                       <div class="card-body">
                         <div class="row align-items-center">
@@ -89,18 +89,15 @@
                       </div>
                     </div>
                   </div>
-                </div>
+
+                </div> 
             <br>
             <div class="col-lg-12">
               <div class="card">
                   <div class="card-header">
-                    <div class="col-3">
                       <h3 class="card-title">Daftar Tamu</h3>
-                    </div>
-                    <div class="col-8"></div>
-                    <div class="col-3">
+                    <div class="card-actions"></div>
                       <a class="btn btn-success" href="<?= base_url('Fungsi/cetak_pdf'); ?>">Print</a>
-                    </div>
                   </div>
                   <div class="table-responsive">
                     <table id="data" class="table card-table table-vcenter border-dark text-nowrap">
@@ -134,7 +131,7 @@
                               </span>
                             </a>
                            <div class="dropdown-menu dropdown-menu-arrow bg-dark text-white" id="navbar-third">
-                              <a class="dropdown-item" href="<?= base_url('Fungsi/Edit/'.$this->encryption->encrypt($dt->id_tamu)); ?>">
+                              <a class="dropdown-item" href="<?= base_url('Fungsi/Edit/'.base64_encode($dt->id_tamu)); ?>">
                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-plus text-blue" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
@@ -143,29 +140,18 @@
                                 <path d="M9 14l6 0"></path>
                             </svg>
                             <span>
-                                    EDIT
+                              EDIT
                               </a>
-                            <a class="dropdown-item" href="<?= base_url('Fungsi/hapus/'.$this->encryption->encrypt($dt->id_tamu));?>">
+                            <a class="dropdown-item" href="<?= base_url('Fungsi/hapus/'.base64_encode($dt->id_tamu));?>">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-x text-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                              <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-                                              <path d="M10 12l4 4m0 -4l-4 4"></path>
-                                              </svg>
-                                   HAPUS
+                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                             <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                             <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                             <path d="M10 12l4 4m0 -4l-4 4"></path>
+                             </svg>
+                             HAPUS
                             </a>
                            </div>
-                            <!-- <a style="color: white;" href="#" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#modal-small">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-x " width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-                                <path d="M10 12l4 4m0 -4l-4 4"></path>
-                              </svg> 
-                              <span>
-                                  Hapus
-                              </span>
-                             </a> -->
                           </td>
                         </tr>
                       </tbody>
