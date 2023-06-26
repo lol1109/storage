@@ -56,12 +56,6 @@
                               <a class="dropdown-item" href="<?= base_url('Akad/Tambah') ?>">
                                 Akad
                               </a>
-                               <a class="dropdown-item" href="<?= base_url('Home/Tambah') ?>">
-                                Home
-                              </a>
-                              <a class="dropdown-item" href="<?= base_url('Persyaratan/Tambah') ?>">
-                                Persyaratan
-                              </a>
                               <?php if ($this->session->userdata('akses') == "admin") { ?>
                               <a class="dropdown-item" href="<?= base_url('Petugas/Tambah') ?>">
                                 petugas
@@ -95,6 +89,9 @@
                               </a>
                               <a class="dropdown-item" href="<?= base_url('Persyaratan') ?>">
                                 Persyaratan
+                              </a>
+                              <a class="dropdown-item" href="<?= base_url('Tahapan') ?>">
+                                tahapan
                               </a>
                             </div>
                           </li>

@@ -75,3 +75,6 @@ $route['Home/Tambah'] = 'Fungsi/tm_home';
 
 $route['Persyaratan'] = 'Fungsi/datasyarat';
 $route['Persyaratan/Tambah'] = 'Fungsi/tm_syarat';
+
+$route['Tahapan'] = 'Fungsi/datatahapan';
+$route['Tahapan/Tambah'] = 'Fungsi/tm_tahapan';

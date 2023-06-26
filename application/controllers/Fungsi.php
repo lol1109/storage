@@ -10,6 +10,7 @@ class Fungsi extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->model('Aturan');
 		$this->load->library('form_validation');
+		$this->load->library('image_lib');
 	}
 
 	public function index()
@@ -258,6 +259,7 @@ class Fungsi extends CI_Controller {
     		$config['upload_path'] = FCPATH.'upload/akad/';
         	$config['allowed_types'] = 'gif|jpg|png';
         	$config['max_size'] = 2000;
+        	$config['overwrite'] = TRUE;
 
     		$this->load->library('upload', $config);
 
@@ -303,7 +305,7 @@ class Fungsi extends CI_Controller {
     	function akad(){
     			$data = [
 				'title' => 'Data Akad',
-				'akad' => $this->Conection->tampil_akad()->result(),
+				'akad' => $this->Conection->tampil_akad_l()->result(),
 				'tamu' => $this->Conection->tampil_data_tamu()->result(),
 			];
 
@@ -350,6 +352,7 @@ class Fungsi extends CI_Controller {
 			$config['upload_path'] = FCPATH.'upload/akad/';
         	$config['allowed_types'] = 'gif|jpg|png';
         	$config['max_size'] = 2000;
+        	$config['overwrite'] = TRUE;
 
     		$this->load->library('upload', $config);
 
@@ -703,6 +706,220 @@ class Fungsi extends CI_Controller {
 				$this->load->view('bukutamu/back/u_syarat.php', $data);
 				$this->load->view('bukutamu/side/footer.php');
 	}
+	}
+
+	function datatahapan(){
+    			$data = [
+				'title' => 'Data tahapan',
+				'tahapan' => $this->Conection->tampil_tahapan()->result(),
+			];
+
+			$this->load->view('bukutamu/side/heading.php', $data);
+			$this->load->view('bukutamu/side/navbar.php');
+			$this->load->view('bukutamu/back/h_tahapan.php', $data);
+			$this->load->view('bukutamu/side/footer.php');
+    	}
+
+    	function tm_tahapan(){
+    		$data = [
+			'title' => 'Tambah Data tahapan',
+		];
+
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/t_tahapan.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+    	}
+
+    	function tambah_tahapan(){
+
+    		$judul = $this->input->post('judul');
+    		$desc = $this->input->post('desc');
+
+    		$rules = $this->Aturan->rules8();
+			$this->form_validation->set_rules($rules);
+
+			if ($this->form_validation->run() === TRUE) {
+    		
+    		$config['upload_path'] = FCPATH.'upload/icon/';
+        	$config['allowed_types'] = 'jpeg|jpg|png';
+        	$config['max_size'] = 2000;
+
+    		$this->load->library('upload', $config);
+
+    		if (!$this->upload->do_upload('gambar')) {
+    			$data = [
+				'title' => 'Upload Image',
+				'eror' => $this->upload->display_errors(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/t_tahapan.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+
+    		} else 
+        {	
+        	
+        	$data1 = array(
+        		'judul' => $judul, 
+        		'desc' => $desc, 
+        		'gambar' => $this->upload->data(), 
+        	);
+
+    			$this->Conection->tambah_data_tahapan($data1['judul'], $data1['desc'], $data1['gambar']);
+    			redirect('Fungsi/datatahapan');
+        } 
+    	} else {
+    		$data = [
+				'title' => 'Upload Image',
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/t_tahapan.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+    	}
+    	}
+
+    	public function hapus_tahapan($id){
+		$data = array('id' => $id);
+		$this->Conection->hapus_data($data, 'tahapan');
+		redirect('Fungsi/datatahapan');
+		}
+
+		public function edit_tahapan($id){
+		$decrypt =  base64_decode($id);
+		$where = array('id' => $decrypt);
+		$data = array( 
+			'tahapan' =>$this->Conection->Edit_data($where, 'tahapan')->result(),
+			'title' => 'Edit Data tahapan',
+		);
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/u_tahapan.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+		}
+
+		public function ubah_tahapan($ubah){
+		$decrypt =  base64_decode($ubah);
+		$where = array('id' => $decrypt);
+		$id = $this->input->post('id');
+			$judul = $this->input->post('judul');
+    		$desc = $this->input->post('desc');
+
+    		$rules = $this->Aturan->rules8();
+			$this->form_validation->set_rules($rules);
+
+			if ($this->form_validation->run() === TRUE) {
+
+			$config['upload_path'] = FCPATH.'upload/icon/';
+        	$config['allowed_types'] = 'jpeg|jpg|png';
+        	$config['max_size'] = 2000;
+
+    		$this->load->library('upload', $config);
+
+    		if (!$this->upload->do_upload('gambar')) {
+    			$data = [
+				'tahapan' =>$this->Conection->Edit_data($where, 'tahapan')->result(),
+				'title' => 'Edit Data tahapan',
+				'eror' => $this->upload->display_errors(),
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/u_tahapan.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+
+    		} else {
+
+		$data1 = array(
+				'id' => $id,
+        		'judul' => $judul, 
+        		'desc' => $desc, 
+        		'gambar' => $this->upload->data(), 
+        	);
+
+
+
+		$this->Conection->ubah_data_tahapan($data1['id'], $data1['judul'], $data1['desc'], $data1['gambar']);
+		redirect('Fungsi/datatahapan');
+	}
+	} else {
+		$data = [
+				'tahapan' =>$this->Conection->Edit_data($where, 'tahapan')->result(),
+				'title' => 'Edit Data tahapan',
+			];
+
+    			$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/u_tahapan.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+	}
+	}
+
+	function resizeImg($source){
+
+        // Set the source image path
+        $source_image = 'upload/icon/'.$source;
+
+        // Set the new image path
+        $new_image = FCPATH.'upload/icon/resize/';
+
+        // Set the image resize configuration
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = $source_image;
+        $config['new_image'] = $new_image;
+        $config['maintain_ratio'] = TRUE;
+        $config['width'] = 50;
+        $config['height'] = 50;
+
+        // Initialize the image library with the configuration
+        $this->image_lib->initialize($config);
+
+        if (!$this->image_lib->resize()) {
+            echo $this->image_lib->display_errors();
+        } else {
+            redirect('Fungsi/datatahapan');
+        }
+        
+	}
+
+	function resizeImg1($source){
+
+        // Set the source image path
+        $source_image = 'upload/akad/'.$source;
+
+        // Set the new image path
+        $new_image = FCPATH.'upload/akad/resize/';
+
+        // Set the image resize configuration
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = $source_image;
+        $config['new_image'] = $new_image;
+        $config['maintain_ratio'] = TRUE;
+        $config['width'] = 512;
+        $config['height'] = 512;
+
+        // Initialize the image library with the configuration
+        $this->image_lib->initialize($config);
+
+        if (!$this->image_lib->resize()) {
+            echo $this->image_lib->display_errors();
+        } else {
+            redirect('Fungsi/akad');
+        }
+        
+	}
+
+	function deleteAll(){
+		$items = $this->input->post('hapus');
+
+		if (!empty($items)) {
+			$this->Conection->hapus_data($items, 'akad');
+		}
+
+		redirect('Fungsi/akad');
 	}
 
 }

@@ -42,11 +42,20 @@
 		}
 
 		function tampil_akad(){
-			return $this->db->query("SELECT akad.id, tamu.Nama, akad.merek, akad.tanggal, akad.gambar FROM akad INNER JOIN tamu ON tamu.id_tamu = akad.nama ORDER BY akad.tanggal desc ");
+			return $this->db->query("SELECT akad.id, tamu.Nama, cabang.nama_cabang,  akad.merek, akad.tanggal, akad.gambar FROM ((akad INNER JOIN tamu ON tamu.id_tamu = akad.nama) INNER JOIN cabang ON cabang.id_cabang = tamu.cabang)  ORDER BY akad.tanggal desc limit 3");
+		}
+
+
+		function tampil_akad_l(){
+			return $this->db->query("SELECT akad.id, tamu.Nama, cabang.nama_cabang,  akad.merek, akad.tanggal, akad.gambar FROM ((akad INNER JOIN tamu ON tamu.id_tamu = akad.nama) INNER JOIN cabang ON cabang.id_cabang = tamu.cabang)  ORDER BY akad.tanggal desc");
 		}
 
 		function tampil_home(){
 			return $this->db->query("SELECT * FROM home");
+		}
+
+		function tampil_tahapan(){
+			return $this->db->query("SELECT * FROM tahapan limit 4");
 		}
 
 		function tampil_home1(){
@@ -126,9 +135,19 @@
 			$this->db->query("UPDATE `persyaratan` SET `judul_besar`='$judul',`desc`='$desc', `image`='$g' WHERE persyaratan.id = '$id'");
 		}
 
+		function tambah_data_tahapan( $judul, $desc, $gambar){
+			$g = $gambar['file_name'];
+			$this->db->query("INSERT INTO `tahapan`(`id`, `icon`, `judul`, `desc`) VALUES (NULL,'$g','$judul','$desc')");
+		}
+
+		function ubah_data_tahapan($id ,$judul, $desc, $gambar){
+			$g = $gambar['file_name'];
+			$this->db->query("UPDATE `tahapan` SET `icon`='$g',`judul`='$judul',`desc`='$desc' WHERE tahapan.id = '$id'");
+		}
+
 
 		function hapus_data($data, $table){
-			$this->db->where($data);
+			$this->db->where_in('id', $data);
 			$this->db->delete($table);
 		}
 

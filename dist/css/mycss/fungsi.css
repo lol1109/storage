@@ -1,0 +1,11 @@
+.t-show {
+  display: none;
+}
+
+.lk:hover {
+  color: white;
+}
+
+.t-active {
+  color: white;
+}

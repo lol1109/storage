@@ -20,6 +20,7 @@
     <link href="<?= base_url('dist/libs/dropzone/dist/dropzone.css?1674944402'); ?>" rel="stylesheet">
      <!-- CSS files -->
     <link rel="stylesheet" href="<?= base_url('dist/css/tabler.min.css?1674944402') ?> "/>
+    <link rel="stylesheet" href="<?= base_url('dist/css/mycss/fungsi.css') ?> "/>
     <link rel="stylesheet" href="<?= base_url('dist/css/tabler-flags.min.css?1674944402') ?>" />
     <link rel="stylesheet" href="<?= base_url('dist/css/tabler-payments.min.css?1674944402') ?>" />
     <link rel="stylesheet" href="<?= base_url('dist/css/tabler-vendors.min.css?1674944402') ?>"/>

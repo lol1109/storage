@@ -159,10 +159,10 @@
             <!-- mengulang div -->
             <?php foreach($akad as $dt) : ?>
             <div class="col-md-5 mb-5 items">
-              <div class="card overflow-hidden shadow"> <img class="card-img-top" src="<?= base_url("upload/akad/".$dt->gambar); ?>" alt="gambar" />
+              <div class="card overflow-hidden shadow"> <img class="card-img-top" src="<?= base_url("upload/akad/resize/".$dt->gambar); ?>" alt="gambar" />
                 <div class="card-body py-4 px-3">
                   <div class="d-flex flex-column flex-lg-row justify-content-between mb-3">
-                    <h4 class="text-secondary fw-medium"><a class="link-900 text-decoration-none stretched-link" href="#!"><?= $cabang ?></a></h4><span class="fs-1 fw-medium"><?= $dt->merek; ?></span>
+                    <h4 class="text-secondary fw-medium"><a class="link-900 text-decoration-none stretched-link" href="#!"><?= $dt->nama_cabang ?></a></h4><span class="fs-1 fw-medium"><?= $dt->merek; ?></span>
                   </div>
                   <div class="d-flex align-items-center"> <img src="<?= base_url('source/public/assets/img/dest/navigation.svg'); ?>" style="margin-right: 14px" width="20" alt="navigation" /><span class="fs-0 fw-medium"><?= $dt->tanggal; ?></span></div>
                 </div>
@@ -191,6 +191,7 @@
                 <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize"><?= $dt->judul_besar ?></h3>
               </div>
               <div class="d-flex align-items-start mb-5">
+                <span class="avatar avatar-sm"><img style="margin-right: 5px;" width="50" height="50" src="<?= base_url('dist/img/flags/in.svg'); ?>"></span>
                 <div class="flex-1">
                   <p><?= $dt->desc ?></p>
                 </div>
