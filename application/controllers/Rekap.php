@@ -176,6 +176,49 @@ use Dompdf\Dompdf;
 			}
 		}
 
+		function motor_All(){
+			$tanggal1 = $this->input->post('tanggal1');
+			$tanggal2 = $this->input->post('tanggal2');
+
+			$akses = $this->session->userdata('akses');
+
+			if ($akses == "admin") {
+			$data = [
+			'title' => 'Data Tamu',
+			'hasil' =>  $this->Conection->tampil_jumlah_property()->num_rows(),
+			'hasil1' => $this->Conection->tampil_jumlah_motorA_All($tanggal1, $tanggal2)->num_rows(),
+			'hasil2' => $this->Conection->tampil_data_perbulan()->num_rows(),
+			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
+			'active_m' => 'costum',
+			'active_p' => 'ALL time',
+			'active_s' => 'ALL time',
+			'akses' => $akses,
+			];
+
+			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
+
+			} else {
+			$cabang = $this->session->userdata('cabang');
+
+			$data = [
+			'title' => 'Data Tamu',
+			'hasil' =>  $this->Conection->tampil_jumlah_property_c($cabang)->num_rows(),
+			'hasil1' => $this->Conection->tampil_jumlah_motor_All($cabang, $tanggal1, $tanggal2)->num_rows(),
+			'hasil2' => $this->Conection->tampil_data_perbulan_c($cabang)->num_rows(),
+			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
+			'active_m' => $tanggal,
+			'active_p' => 'ALL time',
+			'active_s' => 'ALL time',
+			'akses' => 'petugas',
+		];
+		
+
+			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
+			}
+		}
+
 		//=================================================
 		//============================== PROPERTY =====================================
 
@@ -299,6 +342,49 @@ use Dompdf\Dompdf;
 			
 		}
 
+		function property_All(){
+			$tanggal1 = $this->input->post('tanggal1');
+			$tanggal2 = $this->input->post('tanggal2');
+
+			$akses = $this->session->userdata('akses');
+			if ($akses == "admin") {
+			$data = [
+			'title' => 'Data Tamu',
+			'hasil' =>  $this->Conection->tampil_jumlah_propertyA_All($tanggal1, $tanggal2)->num_rows(),
+			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
+			'hasil2' => $this->Conection->tampil_data_perbulan()->num_rows(),
+			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
+			'active_m' => 'ALL time',
+			'active_p' => 'costum',
+			'active_s' => 'ALL time',
+			'akses' => $akses,
+		];
+		
+
+			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
+			} else {
+			$cabang = $this->session->userdata('cabang');
+
+			$data = [
+			'title' => 'Data Tamu',
+			'hasil' =>  $this->Conection->tampil_jumlah_property_All($cabang, $tanggal1, $tanggal2)->num_rows(),
+			'hasil1' => $this->Conection->tampil_jumlah_motor_c($cabang)->num_rows(),
+			'hasil2' => $this->Conection->tampil_data_perbulan_c($cabang)->num_rows(),
+			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
+			'active_m' => 'ALL time',
+			'active_p' => 'costum',
+			'active_s' => 'ALL time',
+			'akses' => 'petugas',
+		];
+		
+
+			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
+			}
+			
+		}
+
 		//=================================================
 		//============================== semua =====================================
 
@@ -388,7 +474,7 @@ use Dompdf\Dompdf;
 			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
-			'active_s' => 'last 1 months',
+			'active_s' => 'last 1 years',
 			'akses' => $akses,
 		];
 
@@ -405,7 +491,47 @@ use Dompdf\Dompdf;
 			'cabang' => $this->Conection->InformasiCabang()->result(),
 			'active_m' => 'ALL time',
 			'active_p' => 'ALL time',
-			'active_s' => 'last 1 months',
+			'active_s' => 'last 1 years',
+			'akses' => 'petugas',
+		];
+
+			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
+			}
+		}
+
+		function semua_All(){
+		$tanggal1 = $this->input->post('tanggal1');
+		$tanggal2 = $this->input->post('tanggal2');
+
+		 $akses = $this->session->userdata('akses');
+			if ($akses == "admin") {
+			$data = [
+			'title' => 'Data Tamu',
+			'hasil' =>  $this->Conection->tampil_jumlah_property()->num_rows(),
+			'hasil1' => $this->Conection->tampil_jumlah_motor()->num_rows(),
+			'hasil2' => $this->Conection->tampil_jumlah_semuaA_All($tanggal1, $tanggal2)->num_rows(),
+			'tamu' => $this->Conection->InformasiAdmin()->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
+			'active_m' => 'ALL time',
+			'active_p' => 'ALL time',
+			'active_s' => 'costum',
+			'akses' => $akses,
+		];
+
+			$this->load->view('bukutamu/rekapdata/grafik.php', $data);
+			} else {
+			$cabang = $this->session->userdata('cabang');
+
+			$data = [
+			'title' => 'Data Tamu',
+			'hasil' =>  $this->Conection->tampil_jumlah_property_c($cabang)->num_rows(),
+			'hasil1' => $this->Conection->tampil_jumlah_motor_c($cabang)->num_rows(),
+			'hasil2' => $this->Conection->tampil_jumlah_semua_All($cabang, $tanggal1, $tanggal2)->num_rows(),
+			'tamu' => $this->Conection->Informasi($cabang)->result(),
+			'cabang' => $this->Conection->InformasiCabang()->result(),
+			'active_m' => 'ALL time',
+			'active_p' => 'ALL time',
+			'active_s' => $tanggal,
 			'akses' => 'petugas',
 		];
 

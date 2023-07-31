@@ -39,27 +39,7 @@
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-5 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand" href="index.html"><img  src="<?= base_url('source/public/assets/img/item/logo.png'); ?>" height="50" alt="logo" /></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
-          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
-              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#service">Tahapan</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#destination">Akad</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#booking">Persayratan</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">Testimoni</a></li>
-          <!--<li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#!">Login</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-dark order-1 order-lg-0 fw-medium" href="#!">Sign Up</a></li>
-              <li class="nav-item dropdown px-3 px-lg-0"> <a class="d-inline-block ps-0 py-2 pe-3 text-decoration-none dropdown-toggle fw-medium" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">EN</a>
-                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:0.3rem;" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">EN</a></li>
-                  <li><a class="dropdown-item" href="#!">BN</a></li>
-                </ul>
-              </li> -->
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <?php $this->load->view('bukutamu/front/navbar.php') ?>
       <section style="padding-top: 7rem;">
         <div class="bg-holder" style="background-image:url(<?= base_url('source/public/assets/css/theme.css'); ?>);">
         </div>
@@ -67,7 +47,7 @@
         <?php foreach($home as $dt) : ?>
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-md-5 col-lg-6 order-0 order-md-1 text-end"><img style="border-radius: 15px;" class="pt-7 pt-md-0 hero-img" src="<?= base_url('upload/home/'.$dt->image); ?>" alt="hero-header" /></div>
+            <div class="col-md-5 col-lg-6 order-0 order-md-1 text-end"><img style="border-radius: 15px;" id="aimg" class="pt-md-0 hero-img" src="<?= base_url('upload/home/'.$dt->image); ?>" alt="hero-header" /></div>
             <div class="col-md-7 col-lg-6 text-md-start text-center py-6">
               <h4 class="fw-bold text-danger mb-3">Elang Motor</h4>
               <h1 class="hero-title"><?= $dt->judul_besar ?></h1>
@@ -191,7 +171,7 @@
                 <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize"><?= $dt->judul_besar ?></h3>
               </div>
               <div class="d-flex align-items-start mb-5">
-                <span class="avatar avatar-sm"><img style="margin-right: 5px;" width="50" height="50" src="<?= base_url('dist/img/flags/in.svg'); ?>"></span>
+                <span class="avatar avatar-sm"><img style="margin-right: 5px;" width="50" height="50" src="<?= base_url('source/public/assets/img/item/logoel.png'); ?>"></span>
                 <div class="flex-1">
                   <p><?= $dt->desc ?></p>
                 </div>
@@ -312,7 +292,7 @@
       <!-- ============================================-->
       <!-- <section> begin ============================-->
       <section class="pt-6">
-
+        <?php foreach($tanya as $dt) : ?>
         <div class="container">
           <div class="py-8 px-5 position-relative text-center" style="background-color: rgba(223, 215, 249, 0.199);border-radius: 129px 20px 20px 20px;">
             <div class="position-absolute start-100 top-0 translate-middle ms-md-n3 ms-n4 mt-3"> <img src="<?= base_url('source/public/assets/img/cta/send.png'); ?>" style="max-width:70px;" alt="send icon" /></div>
@@ -320,15 +300,15 @@
             <div class="position-absolute start-0 bottom-0 ms-3 z-index--1 d-none d-sm-block"> <img src="<?= base_url('source/public/assets/img/cta/shape-bg1.png'); ?>" style="max-width: 340px;" alt="cta shape" /></div>
             <div class="row justify-content-center">
               <div class="col-lg-8 col-md-10">
-                <h2 class="text-secondary lh-1-7 mb-7">Butuh Informasi Lebih Lanjut? Tentang Beli Motor Tanpa Riba</h2>
+                <h2 class="text-secondary lh-1-7 mb-7"><?= $dt->judul; ?></h2>
                   <div class="col-sm-auto">
-                    <button class="btn btn-success grenn-gradient-btn fs--1">Hubungi Kami</button>
+                    <button class="btn btn-success grenn-gradient-btn fs--1"><?= $dt->button; ?></button>
                   </div>
               </div>
             </div>
           </div>
         </div><!-- end of .container-->
-
+      <?php endforeach; ?>
       </section>
       <!-- <section> close ============================-->
       <!-- ============================================-->
@@ -386,6 +366,7 @@
         if (x.matches) {
           document.getElementById('syarat').style.width = "300px";
           document.getElementById('syarat').style.height = "300px";
+          document.getElementById('aimg').style.width = "100%";
          
         } else {
           document.getElementById('syarat').style.width = "500px";

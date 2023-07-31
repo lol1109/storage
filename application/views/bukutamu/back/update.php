@@ -9,7 +9,7 @@
                   <div class="card-header bg-primary text-white">
                     <h3 class="card-title">Ubah Data akad</h3>
                     <div class="card-actions">
-                     <a class="btn btn-success" href="<?= base_url('Akad'); ?>">Kembali</a>
+                     <a class="btn btn-success" href="<?= base_url('Fungsi/back'); ?>">Kembali</a>
                    </div>
                   </div>
                   <div class="card-body">

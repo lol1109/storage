@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	{
 		
 		function __construct()
-		{
+		{	
 			parent::__construct();
 			$this->load->model('Authentication');
 			$this->load->model('Conection');
@@ -15,12 +15,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		function index(){
+			if ($this->session->userdata('nama') != NULL) {
+				return redirect('admin');
+			}
 			$data = [ 'title' => 'Log In'];
 			$this->load->view('bukutamu/side/heading.php', $data);
 			$this->load->view('bukutamu/auth/login.php');
 		}
 
 		function login_akun(){
+			
 			$user = $this->input->post('username');
 			$pass = $this->input->post('password');
 			$akun = $this->db->get_where('petugas', ['username' => $user])->row_array();
@@ -47,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					'secure' => TRUE,
 				);
 				$this->input->set_cookie($cookie);
-				return redirect('Fungsi/index');
+				return redirect('admin');
 				}
 				else {
 					$this->session->set_flashdata('eror', '<div class="alert alert-danger" role="alert"> Username Atau Password Salah! </div>');
@@ -70,13 +74,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				return $this->load->view('bukutamu/auth/login.php');
 			} 
 
-			redirect('Auth/index');
+			redirect('auth');
 				
 		}
 
 		function logout(){
 			$this->session->sess_destroy();
-			redirect('Auth/index');
+			redirect('auth');
 		}
 
 		function registrasi(){

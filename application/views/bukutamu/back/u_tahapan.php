@@ -9,7 +9,7 @@
                   <div class="card-header bg-primary text-white">
                     <h3 class="card-title">Ubah Data Home</h3>
                     <div class="card-actions">
-                     <a class="btn btn-success" href="<?= base_url('Home'); ?>">Kembali</a>
+                     <a class="btn btn-success" href="<?= base_url('Fungsi/back'); ?>">Kembali</a>
                    </div>
                   </div>
                   <div class="card-body">
@@ -24,7 +24,7 @@
                             </div>
                               <div class="mb-3">
                                 <label class="form-label">deskripsi</label>
-                                <input type="text" class="form-control" name="desc" placeholder="VARIO" value="<?= $dt->desc ?>">
+                              <textarea class="form-control" name="example-textarea-input" rows="6" placeholder="Content.." style="height: 98px;"><?= $dt->desc; ?></textarea>
                                 <div class="text-red"><?= form_error('desc'); ?></div>
                             </div>
                             <div class="mb-3">

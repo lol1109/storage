@@ -63,7 +63,14 @@
 	}
 
 	public function Edit($id){
-		$where = array('id_cabang' => $id, );
+		$decrypt =  base64_decode($id);
+		try {
+			$cek = $this->db->get_where('cabang', ['id_cabang' => $decrypt])->row();
+			if (!$cek || is_numeric($id)) {
+				throw new Exception("ID Tidak Ditemukan");
+			}
+			
+			$where = array('id_cabang' => $decrypt, );
 		$data = array( 
 			'tamu' => $this->Conection->Edit_data($where, 'cabang')->result(),
 			'cabang' => $this->Conection->cabang()->result(),
@@ -74,6 +81,13 @@
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/ubah/change_cabang.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
+		} catch (Exception $e) {
+			$error_message = 'Terjadi kesalahan: ' . $e->getMessage();
+        	$data = [
+        		'error' => $error_message,
+        	];
+        	$this->load->view('bukutamu/side/errorA.php', $data);
+		}
 	}
 
 	public function Ubah(){

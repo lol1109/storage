@@ -1,4 +1,3 @@
-
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
@@ -13,7 +12,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Page 404</title>
+    <title>Error</title>
     <!-- CSS files -->
     <link rel="stylesheet" href="<?= base_url('dist/css/tabler.min.css?1674944402') ?> "/>
     <link rel="stylesheet" href="<?= base_url('dist/css/tabler-flags.min.css?1674944402') ?>" />
@@ -35,10 +34,10 @@
     <div class="page page-center">
       <div class="container-tight py-4">
         <div class="empty">
-          <div class="empty-header">Akses Ditolak</div>
-          <p class="empty-title">Anda memasuki halaman admin</p>
+          <div class="empty-header">500</div>
+          <p class="empty-title"> <?= $error; ?></p>
           <p class="empty-subtitle text-muted">
-            ini terjadi karena akses akun anda bukan admin 
+           Kesalaha saat anda mengubah url website
           </p>
           <div class="empty-action">
             <a href="<?= base_url('admin') ?>" class="btn btn-primary">
@@ -56,3 +55,20 @@
     <script src="./dist/js/demo.min.js?1674944402" defer></script>
   </body>
 </html>
+
+<!-- 
+$decrypt =  base64_decode($id);
+    try {
+      $cek = $this->db->get_where('cabang', ['id_cabang' => $decrypt])->row();
+      if (!$cek || is_numeric($id)) {
+        throw new Exception("ID Tidak Ditemukan");
+      }
+      
+      
+    } catch (Exception $e) {
+      $error_message = 'Terjadi kesalahan: ' . $e->getMessage();
+          $data = [
+            'error' => $error_message,
+          ];
+          $this->load->view('bukutamu/side/errorA.php', $data);
+    } -->

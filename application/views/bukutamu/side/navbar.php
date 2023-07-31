@@ -5,7 +5,7 @@
                       <span class="navbar-toggler-icon"></span>
                     </button>
                     <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                      <a href="<?= base_url('Tamu') ?>">
+                      <a href="<?= base_url('admin') ?>">
                         APLIKASI BUKU TAMU
                       </a>
                     </h1>
@@ -26,7 +26,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                           <a class="dropdown-item"><?= $this->input->cookie('user', true); ?></a>
-                          <a href="<?= base_url('Auth/logout') ?>" class="dropdown-item">Log out</a>
+                          <a href="<?= base_url('logout') ?>" class="dropdown-item">Log out</a>
                         </div>
                       </div>
                     </div>
@@ -34,7 +34,7 @@
                       <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                         <ul class="navbar-nav">
                           <li class="nav-item active">
-                            <a class="nav-link" href="<?= base_url('Tamu') ?>" >
+                            <a class="nav-link" href="<?= base_url('admin') ?>" >
                               <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
                               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 /2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>
                               </span>
@@ -43,74 +43,30 @@
                               </span>
                             </a>
                           </li>
-                           <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#navbar-third" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
-                              <span class="nav-link-title">
-                               Tambah data
-                              </span>
-                            </a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="<?= base_url('Tamu/Tambah') ?>">
-                                tamu
-                              </a>
-                              <a class="dropdown-item" href="<?= base_url('Akad/Tambah') ?>">
-                                Akad
-                              </a>
-                              <?php if ($this->session->userdata('akses') == "admin") { ?>
-                              <a class="dropdown-item" href="<?= base_url('Petugas/Tambah') ?>">
-                                petugas
-                              </a>
-                              <a class="dropdown-item" href="<?= base_url('Cabang/Tambah') ?>">
-                                cabang
-                              </a>
-                              
-                              <?php } ?>
-                            </div>
+                          <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('landing-page'); ?>">Landing Page</a>
                           </li>
-                          <?php if ($this->session->userdata('akses') == "admin") { ?>
+                          
                           <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#navbar-third" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
                               <span class="nav-link-title">
-                                cabang
+                                Rekap
                               </span>
                             </a>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="<?= base_url('Cabang') ?>">
+                              <a class="dropdown-item" href="<?= base_url('grafik') ?>">
+                                grafik
+                              </a>
+                              <?php if ($this->session->userdata('akses') == "admin") { ?>
+                              <a class="dropdown-item" href="<?= base_url('data-cabang') ?>">
                                 cabang
                               </a>
-                              <a class="dropdown-item" href="<?= base_url('Petugas') ?>">
+                              <a class="dropdown-item" href="<?= base_url('petugas') ?>">
                                 petugas
-                              </a>
-                              <a class="dropdown-item" href="<?= base_url('Akad') ?>">
-                                Akad
-                              </a>
-                              <a class="dropdown-item" href="<?= base_url('Home') ?>">
-                                Home
-                              </a>
-                              <a class="dropdown-item" href="<?= base_url('Persyaratan') ?>">
-                                Persyaratan
-                              </a>
-                              <a class="dropdown-item" href="<?= base_url('Tahapan') ?>">
-                                tahapan
                               </a>
                             </div>
                           </li>
                           <?php } ?>
-                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#navbar-third" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
-                              <span class="nav-link-title">
-                                rekap
-                              </span>
-                            </a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="<?= base_url('Grafik') ?>">
-                                grafik
-                              </a>
-                            <!--   <a class="dropdown-item" href="<?= base_url('Rekap/cetak_grafik_pdf') ?>">
-                                pdf
-                              </a> -->
-                            </div>
-                          </li>
                         </ul>
                       </div>
                     </div>

@@ -10,7 +10,11 @@
                     <h3 class="card-title">Rekap Data Tamu</h3>
                     <div class="card-actions">
                      <a class="btn btn-success" href="<?= base_url('Tamu'); ?>">Kembali</a>
-                     <!-- <button class="btn btn-success" onclick="window.print()">Print this page</button> -->
+                     <button type="button" class="btn btn-success" onclick="javascript:window.print();">
+                  <!-- Download SVG icon from http://tabler-icons.io/i/printer -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"></path></svg>
+                  Print 
+                </button>
                     </div>
                     </div>
                     <div class="card-body">
@@ -27,6 +31,7 @@
                                     <a class="dropdown-item" href="<?= base_url('Rekap/motor_perminggu') ?>">Last 1 weeks</a>
                                     <a class="dropdown-item" href="<?= base_url('Rekap/motor_perbulan') ?>">Last 1 months</a>
                                     <a class="dropdown-item" href="<?= base_url('Rekap/motor_pertahun') ?>">Last 1 years</a>
+                                    <a class="dropdown-item" id="motorAl" href="#" data-bs-toggle="modal" data-bs-target="#modal-team">Costum</a>
                                 </div>
                                 </div>
                                 </div>
@@ -61,6 +66,7 @@
                                     <a class="dropdown-item" href="<?= base_url('Rekap/property_perminggu') ?>">Last 1 weeks</a>
                                     <a class="dropdown-item" href="<?= base_url('Rekap/property_perbulan') ?>">Last 1 months</a>
                                     <a class="dropdown-item" href="<?= base_url('Rekap/property_pertahun') ?>">Last 1 years</a>
+                                    <a class="dropdown-item" id="propertyAl" href="#" data-bs-toggle="modal" data-bs-target="#modal-team">Costum</a>
                                 </div>
                                 </div>
                                 </div>
@@ -95,6 +101,7 @@
                                     <a class="dropdown-item" href="<?= base_url('Rekap/semua_perminggu') ?>">Last 1 weeks</a>
                                     <a class="dropdown-item" href="<?= base_url('Rekap/semua_perbulan') ?>">Last 1 months</a>
                                     <a class="dropdown-item" href="<?= base_url('Rekap/semua_pertahun') ?>">Last 1 years</a>
+                                    <a class="dropdown-item" id="semuaAl" href="#" data-bs-toggle="modal" data-bs-target="#modal-team">Costum</a>
                                 </div>
                                 </div>
                                 </div>
@@ -259,4 +266,133 @@
     });
 <?php } ?>
 </script>
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+</style>
  	<?php $this->load->view('bukutamu/side/footer.php'); ?>
+    <div class="modal modal-blur fade" id="modal-team" tabindex="-1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <!-- Motor -->
+        <div id="modal1" class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Cari Data Penjualan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="cariMotor" method="post" action="<?= base_url('Rekap/motor_ALL'); ?>" role="form">
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="hidden" id="id" name="id"> 
+                  <div class="mb-12">
+                    <label class="form-label">Tanggal Awal</label>
+                    <input type="date" class="form-control" id="tanggal1" name="tanggal1">
+                  </div>
+                  <div class="mb-12">
+                    <label class="form-label">Tanggal Akhir</label>
+                    <input type="date" class="form-control" id="tanggal2" name="tanggal2">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
+            <button type="button" id="cari1" class="btn btn-primary" data-bs-dismiss="modal">cari</button>
+          </div>
+          </div>
+
+          <!-- property -->
+        <div id="modal2" class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Cari Data Penjualan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="cariProperty" method="post" action="<?= base_url('Rekap/property_ALL'); ?>" role="form">
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="hidden" id="id" name="id"> 
+                  <div class="mb-12">
+                    <label class="form-label">Tanggal Awal</label>
+                    <input type="date" class="form-control" id="tanggal1" name="tanggal1">
+                  </div>
+                  <div class="mb-12">
+                    <label class="form-label">Tanggal Akhir</label>
+                    <input type="date" class="form-control" id="tanggal2" name="tanggal2">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
+            <button type="button" id="cari2" class="btn btn-primary" data-bs-dismiss="modal">cari</button>
+          </div>
+          </div>
+
+          <!-- Semua -->
+        <div id="modal3" class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Cari Data Penjualan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="cariSemua" method="post" action="<?= base_url('Rekap/semua_All'); ?>" role="form">
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="hidden" id="id" name="id"> 
+                  <div class="mb-12">
+                    <label class="form-label">Tanggal Awal</label>
+                    <input type="date" class="form-control" id="tanggal1" name="tanggal1">
+                  </div>
+                  <div class="mb-12">
+                    <label class="form-label">Tanggal Akhir</label>
+                    <input type="date" class="form-control" id="tanggal2" name="tanggal2">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
+            <button type="button" id="cari3" class="btn btn-primary" data-bs-dismiss="modal">cari</button>
+          </div>
+          </div>
+
+
+          <script type="text/javascript">
+            var modal1 = document.getElementById('modal1');
+            var modal2 = document.getElementById('modal2'); 
+            var modal3 = document.getElementById('modal3');
+            $("#motorAl").click(function(){
+                modal1.classList.remove('hide');
+                modal2.classList.add('hide');
+                modal3.classList.add('hide');
+            });
+            $("#propertyAl").click(function(){
+                modal2.classList.remove('hide');
+                modal1.classList.add('hide');
+                modal3.classList.add('hide');
+            });
+             $("#semuaAl").click(function(){
+                modal3.classList.remove('hide');
+                modal1.classList.add('hide');
+                modal2.classList.add('hide');
+            });
+            $("#cari1").click(function(){ // Ketika user mengklik tombol delete
+                $("#cariMotor").submit(); // Submit form
+            });
+             $("#cari2").click(function(){ // Ketika user mengklik tombol delete
+                $("#cariProperty").submit(); // Submit form
+            });
+            $("#cari3").click(function(){ // Ketika user mengklik tombol delete
+                $("#cariSemua").submit(); // Submit form
+            });
+
+            $("#motorAl").submit(function(event){
+                  event.preventDefault();
+            })
+          </script>

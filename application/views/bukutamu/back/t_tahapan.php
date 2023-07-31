@@ -8,7 +8,7 @@
                   <div class="card-header bg-primary text-white">
                     <h3 class="card-title">Upload Data Tahapan</h3>
                     <div class="card-actions">
-                     <a class="btn btn-success" href="<?= base_url('Home'); ?>">Kembali</a>
+                     <a class="btn btn-success" href="<?= base_url('Fungsi/back'); ?>">Kembali</a>
                    </div>
                   </div>
                   <div class="card-body">

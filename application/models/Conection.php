@@ -28,7 +28,7 @@
 		}
 
 		function tampil_data_join(){
-			return $this->db->query("SELECT tamu.id_tamu, tamu.Nama, tamu.Kontak, tamu.noWa, tamu.Bidang, tamu.Tujuan, tamu.JenisInformasi,tamu.Informasi, tamu.Kesimpulan, tamu.tanggal, petugas.nama_petugas, cabang.nama_cabang FROM ((tamu INNER JOIN petugas ON petugas.id_petugas = tamu.petugas)INNER JOIN cabang ON cabang.id_cabang = tamu.cabang) ORDER BY tamu.id_tamu DESC ");
+			return $this->db->query("SELECT tamu.id_tamu, tamu.Nama, tamu.Kontak, tamu.noWa, tamu.Bidang, tamu.Tujuan, tamu.JenisInformasi,tamu.Informasi, tamu.Kesimpulan, tamu.tanggal, petugas.nama_petugas, cabang.nama_cabang FROM ((tamu INNER JOIN petugas ON petugas.id_petugas = tamu.petugas)INNER JOIN cabang ON cabang.id_cabang = tamu.cabang) WHERE tamu.deleted = 'no' ORDER BY tamu.id_tamu DESC");
 		}
 
 		function tampil_data_join_petugas($cabang){
@@ -68,6 +68,10 @@
 
 		function tampil_syarat1(){
 			return $this->db->get('persyaratan', 1);
+		}
+
+		function tampil_tanya(){
+			return $this->db->get('tanya', 1);
 		}
 
 		function tampil_jumlah_property(){
@@ -130,9 +134,8 @@
 			$this->db->query("INSERT INTO `persyaratan`(`id`, `judul_besar`, `desc`, `image`) VALUES (NULL,'$judul','$desc','$g')");
 		}
 
-		function ubah_data_syarat($id, $judul, $desc, $gambar){
-			$g = $gambar['file_name'];
-			$this->db->query("UPDATE `persyaratan` SET `judul_besar`='$judul',`desc`='$desc', `image`='$g' WHERE persyaratan.id = '$id'");
+		function ubah_data_syarat($id, $judul, $desc){
+			$this->db->query("UPDATE `persyaratan` SET `judul_besar`='$judul',`desc`='$desc' WHERE persyaratan.id = '$id'");
 		}
 
 		function tambah_data_tahapan( $judul, $desc, $gambar){
@@ -145,10 +148,19 @@
 			$this->db->query("UPDATE `tahapan` SET `icon`='$g',`judul`='$judul',`desc`='$desc' WHERE tahapan.id = '$id'");
 		}
 
+		function ubah_data_tanya($id ,$judul, $button){
+			$g = $gambar['file_name'];
+			$this->db->query("UPDATE `tanya` SET `judul`='$judul',`button`='$button' WHERE tanya.id = '$id'");
+		}
+
 
 		function hapus_data($data, $table){
 			$this->db->where_in('id', $data);
 			$this->db->delete($table);
+		}
+
+		function deleted($id){
+			$this->db->query("UPDATE tamu SET deleted = 'yes' WHERE id_tamu = '$id'");
 		}
 
 		function Edit_data($where, $table){
@@ -198,6 +210,10 @@
 			return $this->db->query("SELECT * FROM tamu WHERE Bidang = 'Elang Motor' and tanggal >= '$ty' and tanggal <= '$sekarang' ");
 		}
 
+		function tampil_jumlah_motorA_All($tanggal1, $tanggal2){
+			return $this->db->query("SELECT * FROM tamu WHERE Bidang = 'Elang Motor' and tanggal >= '$tanggal1' and tanggal <= '$tanggal2' ");
+		}
+
 		// ============= PROPERTY ===============
 		function tampil_jumlah_property_mingguA(){
 			global $tm, $sekarang;
@@ -210,8 +226,11 @@
 		}
 
 		function tampil_jumlah_property_tahunA(){
-			global $ty, $sekarang;
 			return $this->db->query("SELECT * FROM tamu WHERE Bidang = 'Elang Property' and tanggal >= '$ty' and tanggal <= '$sekarang' ");
+		}
+
+		function tampil_jumlah_propertyA_All($tanggal1, $tanggal2){
+			return $this->db->query("SELECT * FROM tamu WHERE Bidang = 'Elang Property' and tanggal >= '$tanggal1' and tanggal <= '$tanggal2' ");
 		}
 		// ============= SEMUA ===============
 
@@ -228,6 +247,10 @@
 		function tampil_jumlah_semua_tahunA(){
 			global $ty, $sekarang;
 			return $this->db->query("SELECT * FROM tamu WHERE tanggal >= '$ty' and tanggal <= '$sekarang' ");
+		}
+
+		function tampil_jumlah_semuaA_All($tanggal1, $tanggal2){
+			return $this->db->query("SELECT * FROM tamu WHERE tanggal >= '$tanggal1' and tanggal <= '$tanggal2' ");
 		}
 
 		// ====================================
@@ -256,6 +279,10 @@
 			return $this->db->query("SELECT * FROM tamu WHERE cabang = '$cabang' and Bidang = 'Elang Motor' and tanggal >= '$ty' and tanggal <= '$sekarang' ");
 		}
 
+		function tampil_jumlah_motor_All($cabang, $tanggal1, $tanggal2){
+			return $this->db->query("SELECT * FROM tamu WHERE cabang = '$cabang' and Bidang = 'Elang Motor' and tanggal >= '$tanggal1' and tanggal <= '$tanggal2' ");
+		}
+
 		// Property
 
 		function tampil_jumlah_property_minggu($cabang){
@@ -273,6 +300,10 @@
 			return $this->db->query("SELECT * FROM tamu WHERE cabang = '$cabang' and Bidang = 'Elang Property' and tanggal >= '$ty' and tanggal <= '$sekarang' ");
 		}
 
+		function tampil_jumlah_property_All($cabang, $tanggal1, $tanggal2){
+			return $this->db->query("SELECT * FROM tamu WHERE cabang = '$cabang' and Bidang = 'Elang Property' and tanggal >= '$tanggal1' and tanggal <= '$tanggal2' ");
+		}
+
 		// Semua
 
 		function tampil_jumlah_semua_minggu($cabang){
@@ -288,6 +319,11 @@
 		function tampil_jumlah_semua_tahun($cabang){
 			global $ty, $sekarang;
 			return $this->db->query("SELECT * FROM tamu WHERE cabang = '$cabang' and tanggal >= '$ty' and tanggal <= '$sekarang' ");
+		}
+
+		function tampil_jumlah_semua_All($cabang, $tanggal1, $tanggal2){
+			global $sekarang;
+			return $this->db->query("SELECT * FROM tamu WHERE cabang = '$cabang' and tanggal >= '$tanggal1' and tanggal <= '$tanggal2' ");
 		}
 
 	}

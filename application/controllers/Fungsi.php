@@ -5,6 +5,9 @@ class Fungsi extends CI_Controller {
 
 	function  __construct(){
 		parent::__construct();
+		if ($this->session->userdata('nama') === NULL) {
+				redirect('Auth');
+			}
 		$this->load->model('Conection');
 		$this->load->model('Aturan');
 		$this->load->helper('url');
@@ -99,7 +102,7 @@ class Fungsi extends CI_Controller {
 			'tanggal' => $tanggal,
 		);
 		$this->Conection->tambah_data($data, 'tamu');
-		redirect('Fungsi/index');
+		redirect('admin');
 		} 
 
 		else {
@@ -114,7 +117,7 @@ class Fungsi extends CI_Controller {
 		return $this->load->view('bukutamu/tambah/insert.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
 		}
-		redirect('Fungsi/index');
+		redirect('admin');
 		
 	}   
 
@@ -122,11 +125,23 @@ class Fungsi extends CI_Controller {
 		$decrypt = base64_decode($id);
 		$data = array('id_tamu' => $decrypt);
 		$this->Conection->hapus_data($data, 'tamu');
-		redirect('Fungsi/index');
+		redirect('admin');
+	}
+
+	public function delate($id){
+		$decrypt = base64_decode($id);
+		$id = array('id_tamu' => $decrypt);
+		$this->Conection->deleted($id['id_tamu']);
+		redirect('admin');
 	}
 
 	public function Edit($id){
-		$decrypt =  base64_decode($id);
+			$decrypt =  base64_decode($id);
+    try {
+      $cek = $this->db->get_where('tamu', ['id_tamu' => $decrypt])->row();
+      if (!$cek || is_numeric($id)) {
+        throw new Exception("ID Tidak Ditemukan");
+      }
 		$where = array('id_tamu' => $decrypt);
 		$data = array( 
 			'tamu' => $this->Conection->Edit_data($where, 'tamu')->result(),
@@ -138,7 +153,16 @@ class Fungsi extends CI_Controller {
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/ubah/change.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
+    } catch (Exception $e) {
+      $error_message = 'Terjadi kesalahan: ' . $e->getMessage();
+          $data = [
+            'error' => $error_message,
+          ];
+          $this->load->view('bukutamu/side/errorA.php', $data);
+    } 
 		}
+
+		
 
 	public function Ubah($tamu){
 
@@ -176,7 +200,7 @@ class Fungsi extends CI_Controller {
 		);
 
 		$this->Conection->ubah_data($where, $data, 'tamu');
-		redirect('Fungsi/index');
+		redirect('admin');
 		} else {
 			$where = array('id_tamu' => $tamu, );
 			$data = array( 
@@ -209,8 +233,21 @@ class Fungsi extends CI_Controller {
 		$this->pdf->load_view('bukutamu/delete', $data);
 	}
 
-		function test1(){
-			$this->load->view('bukutamu/test.php');
+		function back(){
+			$data = [
+				'title' => 'Data Landing Page',
+				'home' => $this->Conection->tampil_home1()->result(),
+				'akad' => $this->Conection->tampil_akad_l()->result(),
+				'syarat' => $this->Conection->tampil_syarat1()->result(),
+				'tahapan' => $this->Conection->tampil_tahapan()->result(),
+				'tanya' => $this->Conection->tampil_tanya()->result(),
+			];
+
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/back.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+			
 		}
 
 		function test() {
@@ -287,7 +324,7 @@ class Fungsi extends CI_Controller {
         	);
 
     			$this->Conection->tambah_data_akad($where['nama'], $where['merek'], $where['tanggal'], $where['gambar']);
-    			redirect('Fungsi/akad');
+    			redirect('landing-page');
         }
     		} else {
     			$data = [
@@ -318,10 +355,34 @@ class Fungsi extends CI_Controller {
     	public function hapus_akad($id){
 		$data = array('id' => $id);
 		$this->Conection->hapus_data($data, 'akad');
-		redirect('Fungsi/akad');
+		redirect('landing-page');
 		}
 
 		public function edit_akad($id){
+		$decrypt =  base64_decode($id);
+    		try {
+      			$cek = $this->db->get_where('akad', ['id' => $decrypt])->row();
+      		if (!$cek || is_numeric($id)) {
+        		throw new Exception("ID Tidak Ditemukan");
+      		}
+
+		$where = array('id' => $decrypt);
+		$data = array( 
+			'akad' =>$this->Conection->Edit_data($where, 'akad')->result(),
+			'tamu' => $this->Conection->tampil_data_tamu()->result(),
+			'title' => 'Edit Data Akad',
+		);
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/update.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+			} catch (Exception $e) {
+				$error_message = 'Terjadi kesalahan: ' . $e->getMessage();
+        	$data = [
+        		'error' => $error_message,
+        	];
+        	$this->load->view('bukutamu/side/errorA.php', $data);
+			}
 		$decrypt =  base64_decode($id);
 		$where = array('id' => $decrypt);
 		$data = array( 
@@ -381,7 +442,7 @@ class Fungsi extends CI_Controller {
 
 
 		$this->Conection->ubah_data_akad($data['id'], $data['nama'], $data['tanggal'], $data['merek'],$data['gambar']);
-		redirect('Fungsi/akad');
+		redirect('landing-page');
 		}
 		} else {
 			$data = [
@@ -462,7 +523,7 @@ class Fungsi extends CI_Controller {
         	);
 
     			$this->Conection->tambah_data_home($data1['judul_besar'], $data1['desc'], $data1['action'], $data1['gambar']);
-    			redirect('Fungsi/datahome');
+    			redirect('landing-page');
         }
     	} else {
     		$data = [
@@ -480,12 +541,17 @@ class Fungsi extends CI_Controller {
     	public function hapus_home($id){
 		$data = array('id' => $id);
 		$this->Conection->hapus_data($data, 'home');
-		redirect('Fungsi/datahome');
+		redirect('landing-page');
 		}
 
 		public function edit_home($id){
-		$decrypt =  base64_decode($id);
-		$where = array('id' => $decrypt);
+			$decrypt =  base64_decode($id);
+    try {
+      $cek = $this->db->get_where('home', ['id' => $decrypt])->row();
+      if (!$cek || is_numeric($id)) {
+        throw new Exception("ID Tidak Ditemukan");
+      }
+      $where = array('id' => $decrypt);
 		$data = array( 
 			'home' =>$this->Conection->Edit_data($where, 'home')->result(),
 			'title' => 'Edit Data home',
@@ -494,6 +560,15 @@ class Fungsi extends CI_Controller {
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/back/u_home.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
+      
+    } catch (Exception $e) {
+      $error_message = 'Terjadi kesalahan: ' . $e->getMessage();
+          $data = [
+            'error' => $error_message,
+          ];
+          $this->load->view('bukutamu/side/errorA.php', $data);
+    }
+		
 		}
 
     	public function ubah_home($ubah){
@@ -541,7 +616,7 @@ class Fungsi extends CI_Controller {
 
 
 		$this->Conection->ubah_data_home($data1['id'], $data1['judul_besar'], $data1['desc'], $data1['action'], $data1['gambar']);
-		redirect('Fungsi/datahome');
+		redirect('landing-page');
 	}
 	} else {
 		    	$data = [
@@ -618,7 +693,7 @@ class Fungsi extends CI_Controller {
         	);
 
     			$this->Conection->tambah_data_syarat($data1['judul_besar'], $data1['desc'], $data1['gambar']);
-    			redirect('Fungsi/datasyarat');
+    			redirect('landing-page');
         } 
     	} else {
     		$data = [
@@ -635,11 +710,16 @@ class Fungsi extends CI_Controller {
     	public function hapus_syarat($id){
 		$data = array('id' => $id);
 		$this->Conection->hapus_data($data, 'persyaratan');
-		redirect('Fungsi/datasyarat');
+		redirect('landing-page');
 		}
 
 		public function edit_syarat($id){
-		$decrypt =  base64_decode($id);
+			$decrypt =  base64_decode($id);
+    try {
+      $cek = $this->db->get_where('persyaratan', ['id' => $decrypt])->row();
+      if (!$cek || is_numeric($id)) {
+        throw new Exception("ID Tidak Ditemukan");
+      }
 		$where = array('id' => $decrypt);
 		$data = array( 
 			'syarat' =>$this->Conection->Edit_data($where, 'persyaratan')->result(),
@@ -649,6 +729,14 @@ class Fungsi extends CI_Controller {
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/back/u_syarat.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
+      
+    } catch (Exception $e) {
+      $error_message = 'Terjadi kesalahan: ' . $e->getMessage();
+          $data = [
+            'error' => $error_message,
+          ];
+          $this->load->view('bukutamu/side/errorA.php', $data);
+    } 
 		}
 
 		public function ubah_syarat($ubah){
@@ -663,38 +751,37 @@ class Fungsi extends CI_Controller {
 
 			if ($this->form_validation->run() === TRUE) {
 
-			$config['upload_path'] = FCPATH.'upload/syarat/';
-        	$config['allowed_types'] = 'jpeg|jpg|png';
-        	$config['max_size'] = 2000;
+			// $config['upload_path'] = FCPATH.'upload/syarat/';
+      //   	$config['allowed_types'] = 'jpeg|jpg|png';
+      //   	$config['max_size'] = 2000;
 
-    		$this->load->library('upload', $config);
+    	// 	$this->load->library('upload', $config);
 
-    		if (!$this->upload->do_upload('gambar')) {
-    			$data = [
-				'syarat' =>$this->Conection->Edit_data($where, 'persyaratan')->result(),
-				'title' => 'Edit Data syarat',
-				'eror' => $this->upload->display_errors(),
-			];
+    	// 	if (!$this->upload->do_upload('gambar')) {
+    	// 		$data = [
+			// 	'syarat' =>$this->Conection->Edit_data($where, 'persyaratan')->result(),
+			// 	'title' => 'Edit Data syarat',
+			// 	'eror' => $this->upload->display_errors(),
+			// ];
 
-    			$this->load->view('bukutamu/side/heading.php', $data);
-				$this->load->view('bukutamu/side/navbar.php');
-				$this->load->view('bukutamu/back/u_syarat.php', $data);
-				$this->load->view('bukutamu/side/footer.php');
+    	// 		$this->load->view('bukutamu/side/heading.php', $data);
+			// 	$this->load->view('bukutamu/side/navbar.php');
+			// 	$this->load->view('bukutamu/back/u_syarat.php', $data);
+			// 	$this->load->view('bukutamu/side/footer.php');
 
-    		} else {
+    	// 	} else {
 
 		$data1 = array(
 				'id' => $id,
         		'judul_besar' => $judul, 
         		'desc' => $desc, 
-        		'gambar' => $this->upload->data(), 
+        		// 'gambar' => $this->upload->data(), 
         	);
 
 
 
-		$this->Conection->ubah_data_syarat($data1['id'], $data1['judul_besar'], $data1['desc'], $data1['gambar']);
-		redirect('Fungsi/datasyarat');
-	}
+		$this->Conection->ubah_data_syarat($data1['id'], $data1['judul_besar'], $data1['desc']);
+		redirect('landing-page');
 	} else {
 		$data = [
 				'syarat' =>$this->Conection->Edit_data($where, 'persyaratan')->result(),
@@ -768,7 +855,7 @@ class Fungsi extends CI_Controller {
         	);
 
     			$this->Conection->tambah_data_tahapan($data1['judul'], $data1['desc'], $data1['gambar']);
-    			redirect('Fungsi/datatahapan');
+    			redirect('landing-page');
         } 
     	} else {
     		$data = [
@@ -785,11 +872,17 @@ class Fungsi extends CI_Controller {
     	public function hapus_tahapan($id){
 		$data = array('id' => $id);
 		$this->Conection->hapus_data($data, 'tahapan');
-		redirect('Fungsi/datatahapan');
+		redirect('landing-page');
 		}
 
 		public function edit_tahapan($id){
-		$decrypt =  base64_decode($id);
+			$decrypt =  base64_decode($id);
+    try {
+      $cek = $this->db->get_where('tahapan', ['id' => $decrypt])->row();
+      if (!$cek || is_numeric($id)) {
+        throw new Exception("ID Tidak Ditemukan");
+      }
+      $decrypt =  base64_decode($id);
 		$where = array('id' => $decrypt);
 		$data = array( 
 			'tahapan' =>$this->Conection->Edit_data($where, 'tahapan')->result(),
@@ -799,6 +892,14 @@ class Fungsi extends CI_Controller {
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/back/u_tahapan.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
+      
+    } catch (Exception $e) {
+      $error_message = 'Terjadi kesalahan: ' . $e->getMessage();
+          $data = [
+            'error' => $error_message,
+          ];
+          $this->load->view('bukutamu/side/errorA.php', $data);
+    } 
 		}
 
 		public function ubah_tahapan($ubah){
@@ -843,7 +944,7 @@ class Fungsi extends CI_Controller {
 
 
 		$this->Conection->ubah_data_tahapan($data1['id'], $data1['judul'], $data1['desc'], $data1['gambar']);
-		redirect('Fungsi/datatahapan');
+		redirect('landing-page');
 	}
 	} else {
 		$data = [
@@ -880,7 +981,7 @@ class Fungsi extends CI_Controller {
         if (!$this->image_lib->resize()) {
             echo $this->image_lib->display_errors();
         } else {
-            redirect('Fungsi/datatahapan');
+            redirect('landing-page');
         }
         
 	}
@@ -907,7 +1008,7 @@ class Fungsi extends CI_Controller {
         if (!$this->image_lib->resize()) {
             echo $this->image_lib->display_errors();
         } else {
-            redirect('Fungsi/akad');
+            redirect('landing-page');
         }
         
 	}
@@ -919,7 +1020,69 @@ class Fungsi extends CI_Controller {
 			$this->Conection->hapus_data($items, 'akad');
 		}
 
-		redirect('Fungsi/akad');
+		redirect('landing-page');
+	}
+
+	public function edit_tanya($id){
+			$decrypt =  base64_decode($id);
+    try {
+      $cek = $this->db->get_where('tanya', ['id' => $decrypt])->row();
+      if (!$cek || is_numeric($id)) {
+        throw new Exception("ID Tidak Ditemukan");
+      }
+      $decrypt =  base64_decode($id);
+		$where = array('id' => $decrypt);
+		$data = array( 
+			'tanya' =>$this->Conection->Edit_data($where, 'tanya')->result(),
+			'title' => 'Edit Data tahapan',
+		);
+		$this->load->view('bukutamu/side/heading.php', $data);
+		$this->load->view('bukutamu/side/navbar.php');
+		$this->load->view('bukutamu/back/u_tanya.php', $data);
+		$this->load->view('bukutamu/side/footer.php');
+      
+    } catch (Exception $e) {
+      $error_message = 'Terjadi kesalahan: ' . $e->getMessage();
+          $data = [
+            'error' => $error_message,
+          ];
+          $this->load->view('bukutamu/side/errorA.php', $data);
+    } 
+		}
+
+		public function ubah_tanya($ubah){
+			$decrypt =  base64_decode($ubah);
+			$where = array('id' => $decrypt);
+			$id = $this->input->post('id');
+			$judul = $this->input->post('judul');
+    	$button = $this->input->post('button');
+
+    	$rules = $this->Aturan->rules9();
+			$this->form_validation->set_rules($rules);
+
+			if ($this->form_validation->run() === TRUE) {
+
+		$data1 = array(
+				'id' => $id,
+        		'judul' => $judul, 
+        		'button' => $button, 
+        	);
+
+
+
+		$this->Conection->ubah_data_tanya($data1['id'], $data1['judul'], $data1['button']);
+		redirect('landing-page');
+	} else {
+		$data = [
+				'tanya' =>$this->Conection->Edit_data($where, 'tanya')->result(),
+				'title' => 'Edit Data tanya',
+			];
+
+    		$this->load->view('bukutamu/side/heading.php', $data);
+				$this->load->view('bukutamu/side/navbar.php');
+				$this->load->view('bukutamu/back/u_tanya.php', $data);
+				$this->load->view('bukutamu/side/footer.php');
+	}
 	}
 
 }

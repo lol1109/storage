@@ -7,11 +7,11 @@
             <div class="col-12">
               <div class="card">
                   <div class="card-header">
-                    <div class="col-md-3">
                     <h3 class="card-title">Data Cabang</h3>
-                    </div>
-                    <div class="col-md-8"></div>
-                     <a class="btn btn-success" href="<?= base_url('Fungsi/index'); ?>">Kembali</a>
+                      <div class="card-actions">
+                        <a class="btn btn-primary" style="margin-right: 10px" href="<?= base_url('Cabang/Tambah') ?>">Tambah</a>
+                        <a class="btn btn-success" href="<?= base_url('Fungsi/index'); ?>">Kembali</a>
+                      </div>
                   </div>
                   <div class="table-responsive">
                     <table id="data" class="table card-table table-vcenter text-nowrap datatable ">
@@ -33,7 +33,7 @@
                           <td><?= $dt->nama_cabang; ?></td>
                           <td><?= $dt->kontak; ?></td>
                           <td>
-                            <?= anchor('Cabang/Edit/'.$dt->id_cabang, '<button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <?= anchor('Cabang/Edit/'.base64_encode($dt->id_cabang), '<button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
                                 <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
@@ -43,7 +43,7 @@
                             <span>
                               Edit
                             </span>
-                          </button>'); ?> <?= anchor('Cabang/hapus_cabang/'.$dt->id_cabang,
+                          </button>'); ?> <?= anchor('Cabang/hapus_cabang/'.base64_encode($dt->id_cabang),
                                              '<button class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-x " width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                               <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>

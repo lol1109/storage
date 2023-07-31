@@ -53,28 +53,30 @@ $route['default_controller'] = 'Front';
 $route['404_override'] = 'Fungsi/error';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['admin'] = 'Auth';
-$route['Tamu'] = 'Fungsi/index';
-$route['Tamu/Tambah'] = 'Fungsi/tambah';
+$route['auth'] = 'Auth';
+$route['logout'] = 'Auth/logout';
+$route['admin'] = 'Fungsi/index';
+$route['tamu/tambah'] = 'Fungsi/tambah';
 
-$route['Cabang'] = 'Cabang/data';
-$route['Cabang/Tambah'] = 'Cabang/tambah_cabang';
+$route['data-cabang'] = 'Cabang/data';
+$route['data-cabang/tambah'] = 'Cabang/tambah_cabang';
 
-$route['Petugas'] = 'Petugas/data';
-$route['Petugas/Tambah'] = 'Petugas/tambah_petugas';
+$route['petugas'] = 'Petugas/data';
+$route['petugas/tambah'] = 'Petugas/tambah_petugas';
 
-$route['Grafik'] = 'Rekap/grafik';
+$route['grafik'] = 'Rekap/grafik';
 
 $route['error'] = 'Error';
 
-$route['Akad'] = 'Fungsi/akad';
-$route['Akad/Tambah'] = 'Fungsi/upload';
+$route['landing-page'] = 'Fungsi/back';
 
-$route['Home'] = 'Fungsi/datahome';
-$route['Home/Tambah'] = 'Fungsi/tm_home';
+//============================== Front =====================================
 
-$route['Persyaratan'] = 'Fungsi/datasyarat';
-$route['Persyaratan/Tambah'] = 'Fungsi/tm_syarat';
+$route['home'] = 'Front/index';
+$route['motor'] = 'Front/motor';
+$route['cabang'] = 'Front/cabang';
 
-$route['Tahapan'] = 'Fungsi/datatahapan';
-$route['Tahapan/Tambah'] = 'Fungsi/tm_tahapan';
+
+//============================== Back =====================================
+
+$route['akad/tambah'] = 'Fungsi/uploadImage';

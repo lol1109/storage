@@ -32,7 +32,7 @@
                         foreach ($akad as $dt) : //dt = datatamu 
                       ?>
                         <tr>
-                          <td  ><input id="b2" type="checkbox" name="hapus[]" value="<?= $dt->id; ?>"></td>
+                          <td><input id="b2" type="checkbox" class="form-check-input" name="hapus[]" value="<?= $dt->id; ?>"></td>
                           <td><?= $no; ?></td>
                           <td><?= $dt->Nama; ?></td>
                           <td><?= $dt->tanggal; ?></td>

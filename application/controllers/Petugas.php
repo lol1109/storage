@@ -82,7 +82,14 @@
 	}
 
 	public function Edit($id){
-		$where = array('id_petugas' => $id, );
+		$decrypt =  base64_decode($id);
+		try {
+			$cek = $this->db->get_where('petugas', ['id_cabang' => $decrypt])->row();
+			if (!$cek || is_numeric($id)) {
+				throw new Exception("ID Tidak Ditemukan");
+			}
+			
+			$where = array('id_petugas' => $decrypt, );
 		$data = array( 
 			'tamu' => $this->Conection->Edit_data($where, 'petugas')->result(),
 			'cabang' => $this->Conection->cabang()->result(),
@@ -93,6 +100,14 @@
 		$this->load->view('bukutamu/side/navbar.php');
 		$this->load->view('bukutamu/ubah/change_petugas.php', $data);
 		$this->load->view('bukutamu/side/footer.php');
+		} catch (Exception $e) {
+			$error_message = 'Terjadi kesalahan: ' . $e->getMessage();
+        	$data = [
+        		'error' => $error_message,
+        	];
+        	$this->load->view('bukutamu/side/errorA.php', $data);
+		}
+		
 	}
 
 	public function Ubah(){

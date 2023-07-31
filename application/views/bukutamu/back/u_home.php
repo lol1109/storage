@@ -9,12 +9,12 @@
                   <div class="card-header bg-primary text-white">
                     <h3 class="card-title">Ubah Data Home</h3>
                     <div class="card-actions">
-                     <a class="btn btn-success" href="<?= base_url('Home'); ?>">Kembali</a>
+                     <a class="btn btn-success" href="<?= base_url('Fungsi/back'); ?>">Kembali</a>
                    </div>
                   </div>
                   <div class="card-body">
                    <?php foreach($home as $dt) : ?>
-                     <?= form_open_multipart('Fungsi/ubah_home/'.base64_encode($dt->id)); ?>
+                     <form id="myForm" action="<?= base_url('Fungsi/ubah_home/'.base64_encode($dt->id)); ?>" method="post" enctype="multipart/form-data">
                      <input type="hidden" name="id" value="<?= $dt->id; ?>">
                             <div class="row">
                                   <div class="mb-3">
@@ -24,7 +24,7 @@
                             </div>
                               <div class="mb-3">
                                 <label class="form-label">deskripsi</label>
-                                <input type="text" class="form-control" name="desc" placeholder="VARIO" value="<?= $dt->desc ?>">
+                                <textarea class="form-control" name="example-textarea-input" rows="6" placeholder="Content.." style="height: 98px;"><?= $dt->desc; ?></textarea>
                                 <div class="text-red"><?= form_error('desc'); ?></div>
                             </div>
                              <div class="mb-3">

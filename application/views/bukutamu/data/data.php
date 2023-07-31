@@ -3,7 +3,7 @@
         <div class="page-body">
           <div class="container-xl d-flex flex-column justify-content-center">
             <div class="row row-cards">
-                  <div class="col-3 row-sm-1 col-sm-6 col-md-3">
+                  <div class="col-6 row-sm-1 col-sm-6 col-md-3">
                     <div class="card card-sm">
                       <div class="card-body">
                         <div class="row align-items-center">
@@ -24,7 +24,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-3 row-sm-1 col-sm-6 col-md-3">
+                  <div class="col-6 row-sm-1 col-sm-6 col-md-3">
                     <div class="card card-sm">
                       <div class="card-body">
                         <div class="row align-items-center">
@@ -35,7 +35,7 @@
                           </div>
                           <div class="col">
                             <div class="font-weight-medium">
-                              Total Bulan Ini
+                              Bulan ini
                             </div>
                             <div class="text-muted">
                                 <?= $hasil3; ?>
@@ -45,7 +45,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-3 col-sm-1 col-sm-6 col-md-3">
+                  <div class="col-6 col-sm-1 col-sm-6 col-md-3">
                     <div class="card card-sm">
                       <div class="card-body">
                         <div class="row align-items-center">
@@ -67,7 +67,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-3 col-sm-1 col-sm-6 col-md-3">
+                  <div class="col-6 col-sm-1 col-sm-6 col-md-3">
                     <div class="card card-sm">
                       <div class="card-body">
                         <div class="row align-items-center">
@@ -97,6 +97,7 @@
                   <div class="card-header">
                       <h3 class="card-title">Daftar Tamu</h3>
                     <div class="card-actions"></div>
+                      <a class="btn btn-primary" style="margin-right: 10px" href="<?= base_url('tamu/tambah'); ?>">Tambah</a>
                       <a class="btn btn-success" href="<?= base_url('Fungsi/cetak_pdf'); ?>">Print</a>
                   </div>
                   <div class="table-responsive">
@@ -142,7 +143,7 @@
                             <span>
                               EDIT
                               </a>
-                            <a class="dropdown-item" href="<?= base_url('Fungsi/hapus/'.base64_encode($dt->id_tamu));?>">
+                            <a class="dropdown-item" href="<?= base_url('Fungsi/delate/'.base64_encode($dt->id_tamu));?>">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-x text-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                              <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>

@@ -14,9 +14,32 @@ class Front extends CI_Controller {
 				'home' => $this->Conection->tampil_home1()->result(),
 				'akad' => $this->Conection->tampil_akad()->result(),
 				'syarat' => $this->Conection->tampil_syarat1()->result(),
+				'tanya' => $this->Conection->tampil_tanya()->result(),
 
 			];
 			$this->load->view('bukutamu/front/index.php', $data);
+		}
+
+		function motor(){
+			$data = [
+				'cabang' => 'Elang Motor Pekanbaru',
+				'home' => $this->Conection->tampil_home1()->result(),
+				'akad' => $this->Conection->tampil_akad()->result(),
+				'syarat' => $this->Conection->tampil_syarat1()->result(),
+
+			];
+			$this->load->view('bukutamu/front/motor.php', $data);
+		}
+
+		function cabang(){
+			$data = [
+				'cabang' => 'Elang Motor Pekanbaru',
+				'home' => $this->Conection->tampil_home1()->result(),
+				'akad' => $this->Conection->tampil_akad()->result(),
+				'syarat' => $this->Conection->tampil_syarat1()->result(),
+
+			];
+			$this->load->view('bukutamu/front/cabang.php', $data);
 		}
 
 		function test(){

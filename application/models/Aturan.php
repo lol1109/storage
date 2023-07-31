@@ -195,5 +195,21 @@ class Aturan extends CI_Model
 			];
 		}
 
+		function rules9(){
+			//for cabang
+			return[
+				[
+					'field' => 'judul',
+					'label' => 'judul',
+					'rules' => 'required|max_length[1000]|min_length[4]',
+				],
+				[
+					'field' => 'button',
+					'label' => 'button',
+					'rules' => 'required|max_length[100]|min_length[4]',
+				],
+			];
+		}
+
 }
  ?>
